@@ -26,9 +26,14 @@ window.onload = function() {
         askForNumberOfPlayers( gameStateObject.hostSenderId );
       }, 2500 );
     } else {
-      askForAName( event.senderId );
-      // Increment numberConnected
-      gameStateObject['numberConnected']++;
+      // Cap number of players, fuck big groups
+      if ( numberConnected === 4) {
+        window.messageBus.send( event.senderId, 'From Chromecast:' + 'MAX_PLAYERS_REACHED' )
+      } else {
+        askForAName( event.senderId );
+        // Increment numberConnected
+        gameStateObject['numberConnected']++;
+      }
     }
   };
 
@@ -66,6 +71,8 @@ window.onload = function() {
       break;
       case 'NUM_PLAYERS':
         gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
+        // Move to the player list screen
+        showScreen('show-connected');
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
       break;
