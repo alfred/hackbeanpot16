@@ -13,7 +13,9 @@ import android.support.v7.media.MediaRouter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.cast.ApplicationMetadata;
@@ -31,145 +33,7 @@ import java.io.IOException;
  * Created by matcp_000 on 1/22/2016.
  */
 public class MainActivity extends AppCompatActivity {
-//    private MediaRouter mRouter;
-//    private MediaRouter.Callback mCallback;
-//    private MediaRouteSelector mSelector;
-//    private static final String TAG = MainActivity.class.getSimpleName();
-//
-//    private static final int REQUEST_CODE = 1;
-//
-//    private MediaRouter mMediaRouter;
-//    private MediaRouteSelector mMediaRouteSelector;
-//    private MediaRouter.Callback mMediaRouterCallback;
-//    private CastDevice mSelectedDevice;
-//    private GoogleApiClient mApiClient;
-//    private Cast.Listener mCastListener;
-//    private ConnectionCallbacks mConnectionCallbacks;
-//    private boolean mApplicationStarted;
-//    private boolean mWaitingForReconnect;
-//    private String mSessionId;
-//
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        mRouter = MediaRouter.getInstance(this);
-//        mSelector = new MediaRouteSelector.Builder()
-//                .addControlCategory(CastMediaControlIntent.categoryForCast("D2E6DFBD"))
-//                .build();
-//        mCallback = new MyCallback();
-//    }
-//    // Add the callback on start to tell the media router what kinds of routes
-//    // the application is interested in so that it can try to discover suitable ones.
-//    public void onStart() {
-//        super.onStart();
-//
-//        mRouter.addCallback(mSelector, mCallback,
-//                MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
-//
-//        MediaRouter.RouteInfo route = mRouter.updateSelectedRoute(mSelector);
-//        // do something with the route...
-//    }
-//
-//    // Remove the selector on stop to tell the media router that it no longer
-//    // needs to invest effort trying to discover routes of these kinds for now.
-//    public void onStop() {
-//        super.onStop();
-//
-//        mRouter.removeCallback(mCallback);
-//    }
-//
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//
-//        getMenuInflater().inflate(R.menu.menu, menu);
-//
-//        MenuItem mediaRouteMenuItem = menu.findItem(R.id.media_route_menu_item);
-//        MediaRouteActionProvider mediaRouteActionProvider =
-//                (MediaRouteActionProvider)MenuItemCompat.getActionProvider(mediaRouteMenuItem);
-//        mediaRouteActionProvider.setRouteSelector(mSelector);
-//        return true;
-//    }
-//
-//    private final class MyCallback extends MediaRouter.Callback {
-//        // Implement callback methods as needed.
-//
-//        @Override
-//        public void onRouteSelected(MediaRouter router, MediaRouter.RouteInfo info) {
-//            mSelectedDevice = CastDevice.getFromBundle(info.getExtras());
-//            String routeId = info.getId();
-//        }
-//
-//        @Override
-//        public void onRouteUnselected(MediaRouter router, MediaRouter.RouteInfo info) {
-//            //teardown();
-//            mSelectedDevice = null;
-//        }
-//    }
-//
-//    /**
-//     * Start the receiver app
-//     */
-//    private void launchReceiver() {
-//        try {
-//            mCastListener = new Cast.Listener() {
-//
-//                @Override
-//                public void onApplicationDisconnected(int errorCode) {
-//                    Log.d(TAG, "application has stopped");
-//                    teardown(true);
-//                }
-//
-//            };
-//            // Connect to Google Play services
-//            mConnectionCallbacks = new GoogleApiClient.ConnectionCallbacks();
-//            //mConnectionFailedListener = new ConnectionFailedListener();
-//            Cast.CastOptions.Builder apiOptionsBuilder = Cast.CastOptions
-//                    .builder(mSelectedDevice, mCastListener);
-//            mApiClient = new GoogleApiClient.Builder(this)
-//                    .addApi(Cast.API, apiOptionsBuilder.build())
-//                    .addConnectionCallbacks(mConnectionCallbacks)
-//                    //.addOnConnectionFailedListener(mConnectionFailedListener)
-//                    .build();
-//
-//            mApiClient.connect();
-//        } catch (Exception e) {
-//            Log.e(TAG, "Failed launchReceiver", e);
-//        }
-//    }
-//
-//    /**
-//     * Tear down the connection to the receiver
-//     */
-//    private void teardown(boolean selectDefaultRoute) {
-//        Log.d(TAG, "teardown");
-//        if (mApiClient != null) {
-//            if (mApplicationStarted) {
-//                if (mApiClient.isConnected() || mApiClient.isConnecting()) {
-//                    try {
-//                        Cast.CastApi.stopApplication(mApiClient, mSessionId);
-//                        if (mHelloWorldChannel != null) {
-//                            Cast.CastApi.removeMessageReceivedCallbacks(
-//                                    mApiClient,
-//                                    mHelloWorldChannel.getNamespace());
-//                            mHelloWorldChannel = null;
-//                        }
-//                    } catch (IOException e) {
-//                        Log.e(TAG, "Exception while removing channel", e);
-//                    }
-//                    mApiClient.disconnect();
-//                }
-//                mApplicationStarted = false;
-//            }
-//            mApiClient = null;
-//        }
-//        if (selectDefaultRoute) {
-//            mMediaRouter.selectRoute(mMediaRouter.getDefaultRoute());
-//        }
-//        mSelectedDevice = null;
-//        mWaitingForReconnect = false;
-//        mSessionId = null;
-//    }
-private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final int REQUEST_CODE = 1;
 
@@ -201,6 +65,15 @@ private static final String TAG = MainActivity.class.getSimpleName();
                 .addControlCategory(CastMediaControlIntent.categoryForCast(getResources()
                         .getString(R.string.app_id))).build();
         mMediaRouterCallback = new MyMediaRouterCallback();
+
+
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText textbox = (EditText) findViewById(R.id.editText);
+                sendMessage(textbox.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -438,7 +311,7 @@ private static final String TAG = MainActivity.class.getSimpleName();
     /**
      * Send a text message to the receiver
      */
-    private void sendMessage(String message) {
+     private void sendMessage(String message) {
         if (mApiClient != null && mHelloWorldChannel != null) {
             try {
                 Cast.CastApi.sendMessage(mApiClient,
@@ -459,7 +332,6 @@ private static final String TAG = MainActivity.class.getSimpleName();
                                     Cast.CastApi.setMessageReceivedCallbacks(mApiClient,
                                             mHelloWorldChannel.getNamespace(),
                                             mHelloWorldChannel);
-                                    Log.e(TAG, "we connected and sent the message");
                                     Log.i(TAG, "msg sent");
                                 } catch (IOException e) {
                                     Log.e(TAG, "Exception while creating channel", e);
