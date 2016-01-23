@@ -347,14 +347,12 @@ public class MainActivity extends AppCompatActivity {
 
     void intentSwitcher(String message) {
         Log.i(TAG, "Intent switcher:" + message);
-        String prefix = "From Chromecast:";
-        Log.i(TAG, prefix + getString(R.string.instructions));
-        if (message.equals(prefix + getString(R.string.instructions))) {//"ENTER_NAME")) {
+        if (message.equals("ENTER_NAME")) {
             Log.i(TAG, "switching to enter name");
             Intent intent = new Intent(this, EnterName.class);
             startActivity(intent);
         }
-        else if (message.equals(prefix + "ENTER_NUM_PLAYERS")) {
+        else if (message.equals("ENTER_NUM_PLAYERS")) {
             Log.i(TAG, "switching to enter num players");
             Intent intent = new Intent(this, NumPlayers.class);
             startActivity(intent);
