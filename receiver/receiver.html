@@ -4,28 +4,65 @@
 <head>
   <title>Game Pack Cast Hack </title>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/games/1.0.0/cast_games_receiver.js"></script>
+  <!-- <script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/games/1.0.0/cast_games_receiver.js"></script> -->
   <script type="text/javascript">
-    window.mediaElement = document.getElementById('container');
-    window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
-    window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-    window.castReceiverManager.start({
-      statusText: 'Ready to fucking play boys',
-      maxInactivity: 60000
-    });
+    window.onload = function() {
+      cast.receiver.logger.setLevelValue( 0 );
+      window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+      console.log('Starting Receiver Manager');
 
-    window.castReceiverManager.onSenderDisconnected = function(event) {
-      if(window.castReceiverManager.getSenders().length == 0 &&
-        event.reason == cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
-          window.close();
+      // handler for the 'ready' event
+      castReceiverManager.onReady = function( event ) {
+        console.log('Received Ready event: ' + JSON.stringify( event.data ) );
+        window.castReceiverManager.setApplicationState("Application status is ready...");
+      };
+
+      // handler for 'senderconnected' event
+      castReceiverManager.onSenderConnected = function(event) {
+        console.log('Received Sender Connected event: ' + event.data );
+        console.log( window.castReceiverManager.getSender( event.data ).userAgent );
+      };
+
+      // handler for 'senderdisconnected' event
+      castReceiverManager.onSenderDisconnected = function( event ) {
+        console.log('Received Sender Disconnected event: ' + event.data );
+        // If everyone disconnects close the window
+        if ( window.castReceiverManager.getSenders().length == 0 ) {
+          window.close(); // Definitely doesn't do anything
+        }
+      };
+
+      // handler for 'systemvolumechanged' event
+      castReceiverManager.onSystemVolumeChanged = function( event ) {
+        console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
+          event.data['muted'] );
+      };
+
+      var messageNameSpace = '';
+      // create a CastMessageBus to handle messages for a custom namespace
+      window.messageBus = window.castReceiverManager.getCastMessageBus('urn:x-cast:' + messageNameSpace );
+
+      // handler for the CastMessageBus message event
+      window.messageBus.onMessage = function( event ) {
+        console.log('Message [' + event.senderId + ']: ' + event.data );
+        // display the message from the sender
+        displayText( event.data );
+        // inform all senders on the CastMessageBus of the incoming message event
+        // sender message listener will be invoked
+        window.messageBus.send( event.senderId, event.data );
       }
+
+      // initialize the CastReceiverManager with an application status message
+      window.castReceiverManager.start( { statusText : "Application is starting" } );
+      console.log('Receiver Manager started');
     };
 
-    // Gets how many people are connected
-    var getNumberOfCurrentlyConnected = function() {
-      window.castReceiverManager.getSenders()
-    }
-
+    // utility function to display the text message in the input field
+    function displayText( text ) {
+      console.log( text );
+      document.getElementByTagName('p').innerHTML = text;
+      window.castReceiverManager.setApplicationState( text );
+    };
   </script>
 </head>
 <body>
