@@ -60,7 +60,7 @@
     // utility function to display the text message in the input field
     function displayText( text ) {
       console.log( text );
-      document.getElementByTagName('p').innerHTML = text;
+      document.getElementsByTagName('p')[ 0 ].innerHTML = text;
       window.castReceiverManager.setApplicationState( text );
     };
   </script>
