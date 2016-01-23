@@ -384,6 +384,31 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PickCard.class);
             startActivity(intent);
         }
+        else if (message.equals("PICK_CARD_SUCCESS")) {
+            Log.i(TAG, "switching to HighLow");
+            Intent intent = new Intent(this, HighLow.class);
+            startActivity(intent);
+        }
+        else if (message.equals("HIGH_LOW_SUCCESS")) {
+            Log.i(TAG, "switching to InsideOutside");
+            Intent intent = new Intent(this, InsideOutside.class);
+            startActivity(intent);
+        }
+        else if (message.equals("INSIDE_OUTSIDE_SUCCESS")) {
+            Log.i(TAG, "switching to SmokeFire");
+            Intent intent = new Intent(this, SmokeFire.class);
+            startActivity(intent);
+        }
+        else if (message.contains("SMOKE_FIRE_SUCCESS")) {
+            Log.i(TAG, "switching to PickPlayer");
+            Intent intent = new Intent(this, PickPlayer.class);
+            startActivity(intent);
+        }
+        /*else if (message.equals("FAILURE")) {
+            Log.i(TAG, "switching to DRINK!");
+            Intent intent = new Intent(this, Drink.class);
+            startActivity(intent);
+        }*/
         else if (message.equals("MAX_PLAYERS_REACHED")) {
             Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG).show();
         }

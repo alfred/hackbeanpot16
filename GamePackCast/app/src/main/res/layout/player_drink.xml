@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="80dp"
+        android:layout_centerVertical="true"
+        android:text="Player 1"
+        android:id="@+id/player1" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Player 2"
+        android:height="80dp"
+        android:layout_toRightOf="@+id/player1"
+        android:id="@+id/player2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:height="80dp"
+        android:text="Player 3"
+        android:layout_toRightOf="@+id/player2"
+        android:id="@+id/player3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:height="80dp"
+        android:layout_toRightOf="@+id/player3"
+        android:text="Player 4"
+        android:id="@+id/player4" />
+</RelativeLayout>

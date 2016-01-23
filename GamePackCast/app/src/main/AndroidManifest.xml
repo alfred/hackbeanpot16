@@ -19,6 +19,10 @@
         <activity android:name="Waiting" />
         <activity android:name="StartGame"/>
         <activity android:name="PickCard" />
+        <activity android:name="HighLow" />
+        <activity android:name="InsideOutside" />
+        <activity android:name="SmokeFire" />
+        <activity android:name="PickPlayer" />
     </application>
 
 </manifest>
