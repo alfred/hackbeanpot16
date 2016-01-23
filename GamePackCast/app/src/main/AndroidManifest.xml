@@ -4,7 +4,7 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="21" />
-    <application android:allowBackup="true" android:label="@string/app_name"
+    <application android:name="MyApplication"  android:allowBackup="true" android:label="@string/app_name"
         android:icon="@drawable/ic_launcher" android:theme="@style/Theme.AppCompat">
         <activity
             android:name="MainActivity"
@@ -19,6 +19,12 @@
             android:label="GamePackCast" />
         <activity
             android:name="NumPlayers"
+            android:label="GamePackCast" />
+        <activity
+            android:name="Waiting"
+            android:label="GamePackCast" />
+        <activity
+            android:name="StartGame"
             android:label="GamePackCast" />
     </application>
 
