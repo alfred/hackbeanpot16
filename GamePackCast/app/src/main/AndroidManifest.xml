@@ -14,18 +14,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="EnterName"
-            android:label="GamePackCast" />
-        <activity
-            android:name="NumPlayers"
-            android:label="GamePackCast" />
-        <activity
-            android:name="Waiting"
-            android:label="GamePackCast" />
-        <activity
-            android:name="StartGame"
-            android:label="GamePackCast" />
+        <activity android:name="EnterName" />
+        <activity android:name="NumPlayers" />
+        <activity android:name="Waiting" />
+        <activity android:name="StartGame"/>
+        <activity android:name="PickCard" />
     </application>
 
 </manifest>
