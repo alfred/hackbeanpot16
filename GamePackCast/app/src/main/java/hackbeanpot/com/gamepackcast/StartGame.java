@@ -28,7 +28,7 @@ public class StartGame extends MainActivity {
         Button button = (Button) findViewById(R.id.start);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sendMessage("START_GAME");
+                sendMessage("START_GAME:");
             }
         });
     }

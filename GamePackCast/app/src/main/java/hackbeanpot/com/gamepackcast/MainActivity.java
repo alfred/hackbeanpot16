@@ -379,8 +379,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, Waiting.class);
             startActivity(intent);
         }
+        else if (message.equals("GAME_HAS_STARTED")) {
+            Log.i(TAG, "switching to PickCard");
+            Intent intent = new Intent(this, PickCard.class);
+            startActivity(intent);
+        }
         else if (message.equals("MAX_PLAYERS_REACHED")) {
-            Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG);
+            Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG).show();
         }
     }
 
