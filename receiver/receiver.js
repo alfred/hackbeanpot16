@@ -98,6 +98,11 @@ window.onload = function() {
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
       break;
+      case 'START_GAME': // Host starts the game
+        // drawGameboard
+        window.messageBus.send( gameStateObject['hostSenderId'], 'GAME_HAS_STARTED' );
+        showScreen('game-board');
+      break;
     }
   }
 
@@ -107,6 +112,7 @@ window.onload = function() {
 };
 
 function pickCard( pick ) {
+  console.log( pick );
 
 };
 
