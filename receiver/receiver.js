@@ -84,24 +84,28 @@ window.onload = function() {
         showScreen('show-connected');
       break;
       case 'PICK_CARD': // pick a card from row 1
-        pickCard( messageData[ 1 ] );
+        chooseCard( messageData[ 1 ] );
+        window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
       break;
       case 'HIGHER_OR_LOWER': // higher or lower from row 2
         higherOrLower( messageData[ 1 ] );
+        window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' );
       break;
       case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
         insideOrOutside( messageData[ 1 ] );
+        window.messageBus.send( event.senderId, 'INSIDE_OUTSIDE_SUCCESS' );
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         smokeOrFire( messageData[ 1 ] );
+        window.messageBus.send( event.senderId, 'SMOKE_FIRE_SUCCESS' );
       break;
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
       break;
       case 'START_GAME': // Host starts the game
-        // drawGameboard
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
         showScreen('gameboard');
+        placeCards( gameStateObject );
       break;
     }
   }
@@ -111,24 +115,45 @@ window.onload = function() {
   console.log('Receiver Manager started');
 };
 
-function pickCard( pick ) {
-  console.log( pick );
+function chooseCard( cardNumber ) {
+  var firstRow = document.getElementsByClassName('cardContainer')[ 3 ].children;
+  firstRow[ cardNumber - 1 ].style.backgroundColor = "#FBF6E2";
+};
+
+// choice is the string "higher" or "lower"
+function higherOrLower( choice ) {
+  var secondRow = document.getElementsByClassName('cardContainer')[ 2 ].children;
+  // firstRow[ cardNumber - 1 ].style.backgroundColor = "#FBF6E2";
+};
+
+// choice is the string "inside" or "outside"
+function insideOrOutside( choice ) {
+  var thirdRow = document.getElementsByClassName('cardContainer')[ 1 ].children;
+};
+
+// choice is the string "smoke" or "fire"
+function smokeOrFire( choice ) {
+  var fourthRow = document.getElementsByClassName('cardContainer')[ 0 ].children;
+  // fourthRow[ 0 ];
+};
+
+function pickPlayer( choice ) {
+  // Sends a message to that player to drink ayyy
+};
+
+function flipFirstRow( cardNum, cardChosen ) {
 
 };
 
-function higherOrLower( pick) {
+function flipSecondRow( cardNum, cardChosen ) {
 
 };
 
-function insideOrOutside( pick ) {
+function flipThirdRow( cardNum, cardChosen ) {
 
 };
 
-function smokeOrFire( pick ) {
-
-};
-
-function pickPlayer( pick ) {
+function flipFourthRow( cardNum, cardChosen ) {
 
 };
 
@@ -161,7 +186,8 @@ function setupGame() {
   return {
     hostSenderId: '',
     numberOfPlayers: '',
-    numberConnected: ''
+    numberConnected: '',
+    deck: new Deck()
   };
 }
 

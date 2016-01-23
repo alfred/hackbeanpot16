@@ -90,7 +90,38 @@ div#container {
   margin: auto;
 }
 
-/** GameBoard  */
+/** ================================== GAME BOARD styles ==================== */
 .gameboard {
-  display: none;
+  width: 500px;
+  height: 500px;
 }
+
+.gameboard .cardRow {
+  width: 100%;
+  height: 25%;
+}
+
+.gameboard .cardContainer {
+  height: 100%;
+  margin: 0 auto;
+  display: table;
+}
+
+.gameboard .cardSlot {
+  height: 100%;
+  width: 100px;
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* Cards */
+.gameboard .outline{ width: 100px; border: 0px solid black; text-align: center; }
+.gameboard .top{ text-align: left; }
+.gameboard .bottom{ text-align: right; }
+.gameboard .rounded{ border-radius:10px; }
+.gameboard .cardRed { color: #FF0000 }
+.gameboard .cardBlack { color: #000000 }
+
