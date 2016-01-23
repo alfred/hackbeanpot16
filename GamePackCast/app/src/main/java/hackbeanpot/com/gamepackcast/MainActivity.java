@@ -1,6 +1,7 @@
 package hackbeanpot.com.gamepackcast;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.service.carrier.CarrierMessagingService;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.splashscreen);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(
@@ -66,14 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         .getString(R.string.app_id))).build();
         mMediaRouterCallback = new MyMediaRouterCallback();
 
-
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                EditText textbox = (EditText) findViewById(R.id.editText);
-                sendMessage(textbox.getText().toString());
-            }
-        });
     }
 
     @Override
@@ -177,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
             if (mApiClient == null) {
                 // We got disconnected while this runnable was pending
                 // execution.
+                Log.e(TAG, "what the fuck man");
                 return;
             }
 
@@ -229,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                                                 // Create the custom message
                                                 // channel
                                                 mHelloWorldChannel = new HelloWorldChannel();
+                                                Log.i(TAG, "hello world channel created");
                                                 try {
                                                     Cast.CastApi.setMessageReceivedCallbacks(
                                                             mApiClient,
@@ -242,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
                                                 // set the initial instructions
                                                 // on the receiver
                                                 sendMessage(getString(R.string.instructions));
+                                                Log.i(TAG, "initial message sent");
                                             } else {
                                                 Log.e(TAG, "application could not launch");
                                                 teardown(true);
@@ -306,12 +302,14 @@ public class MainActivity extends AppCompatActivity {
         mSelectedDevice = null;
         mWaitingForReconnect = false;
         mSessionId = null;
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**
      * Send a text message to the receiver
      */
-     private void sendMessage(String message) {
+     protected void sendMessage(String message) {
         if (mApiClient != null && mHelloWorldChannel != null) {
             try {
                 Cast.CastApi.sendMessage(mApiClient,
@@ -328,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
                                 mApplicationStarted = true;
 
                                 mHelloWorldChannel = new HelloWorldChannel();
+                                Log.i(TAG, "we're here for some reason");
                                 try {
                                     Cast.CastApi.setMessageReceivedCallbacks(mApiClient,
                                             mHelloWorldChannel.getNamespace(),
@@ -343,6 +342,20 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void intentSwitcher(String message) {
+        Log.i(TAG, "Intent switcher:" + message);
+        String prefix = "From Chromecast:";
+        Log.i(TAG, prefix + getString(R.string.instructions));
+        if (message.equals(prefix + getString(R.string.instructions))) {//"ENTER_NAME")) {
+            Log.i(TAG, "switching to enter name");
+            Intent intent = new Intent(this, EnterName.class);
+            startActivity(intent);
+        }
+        else if (message.equals(prefix + "ENTER_NUM_PLAYERS")) {
+
         }
     }
 
@@ -365,6 +378,7 @@ public class MainActivity extends AppCompatActivity {
         public void onMessageReceived(CastDevice castDevice, String namespace,
                                       String message) {
             Log.d(TAG, "onMessageReceived: " + message);
+            intentSwitcher(message);
         }
 
         private void sendMessage(String message) {

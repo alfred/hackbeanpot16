@@ -14,7 +14,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name="EnterName"
+            android:label="GamePackCast" />
+        <activity
+            android:name="NumPlayers"
+            android:label="GamePackCast" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
+  var gameStateObject = setupGame();
   window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   console.log('Starting Receiver Manager');
 
@@ -13,9 +14,22 @@ window.onload = function() {
   castReceiverManager.onSenderConnected = function(event) {
     console.log('Received Sender Connected event: ' + event.data );
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
-    window.messageBus.send( event.senderId, 'From Chromecast:' + event.data );
-    showScreen( 'splash' );
-    setTimeout( showScreen( 'choose-players' , 2500) );
+
+    // window.messageBus.send( event.senderId, 'From Chromecast:' + event.data )
+    if (typeof gameStateObject.hostSenderId === 'undefined') {
+      gameStateObject.hostSenderId = event.senderId;
+      showScreen( 'splash' );
+      setTimeout( function() {
+        showScreen( 'choose-players', 2500 );
+        // Increment numberConnected
+        gameStateObject['numberConnected']++;
+        askForNumberOfPlayers( gameStateObject.hostSenderId );
+      }, 2500 );
+    } else {
+      askForAName( event.senderId );
+      // Increment numberConnected
+      gameStateObject['numberConnected']++;
+    }
   };
 
   // handler for 'senderdisconnected' event
@@ -40,11 +54,20 @@ window.onload = function() {
   // handler for the CastMessageBus message event
   window.messageBus.onMessage = function( event ) {
     console.log('Message [' + event.senderId + ']: ' + event.data );
-    // display the message from the sender
-    displayText( event.data );
-    // inform all senders on the CastMessageBus of the incoming message event
-    // sender message listener will be invoked
-    window.messageBus.send( event.senderId, 'From Chromecast:' + event.data );
+    var messageData = event.data.split(':');
+
+    switch ( messageData[ 0 ] ) {
+      case 'NAME_ENTERED':
+        gameStateObject[ event.senderId ] = {
+          'name' : messageData[ 1 ]
+        }
+      break;
+      case 'NUM_PLAYERS':
+        gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
+        // Ask for the hosts name
+        askForAName( gameStateObject['hostSenderId'] );
+      break;
+    }
   }
 
   // initialize the CastReceiverManager with an application status message
@@ -66,3 +89,21 @@ function showScreen( screenClassName ) {
 
   document.getElementsByClassName( screenClassName )[ 0 ].style.display = 'block';
 }
+
+function askForAName( senderId ) {
+  window.messageBus.send( senderId, 'ENTER_NAME' );
+}
+
+function askForNumberOfPlayers( senderId ) {
+  window.messageBus.send( senderId, 'ENTER_NUM_PLAYERS' );
+}
+
+function setupGame() {
+  return {
+    hostSenderId: '',
+    numberOfPlayers: '',
+    numberConnected: '',
+
+  };
+}
+
