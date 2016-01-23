@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GamePackCast</string>
     <string name="media_route_menu_title">GamePackCast</string>
+    <string name="app_id">D2E6DFBD</string>
+    <string name="namespace">urn:x-cast:GamePackCast</string>
+    <string name="instructions">ayyy</string>
 </resources>
