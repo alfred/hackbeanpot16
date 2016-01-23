@@ -84,8 +84,8 @@ function displayText( text ) {
 
 function showScreen( screenClassName ) {
   var allRows = document.getElementsByClassName('row');
-
-  allRows.forEach( function( row ) {
+  var arr = [].slice.call( allRows );
+  arr.forEach( function( row ) {
     row.style.display = 'none';
   });
 
