@@ -1,46 +1,43 @@
-// window.onload = function() {
-
-// 	var myDeck = new deck();
-// 	console.log(myDeck);
-
-// 	for(var i=0; i < myDeck.length; i++){
-// 		div = document.createElement('div');
-// 		div.className = 'card';
-
-// 		if(myDeck[i].suit == 'Diamonds'){
-// 			var ascii_char = '♦';
-// 		} else {
-// 			var ascii_char = '&' + myDeck[i].suit.toLowerCase() + ';';
-// 		}
-
-// 		div.innerHTML = '' + myDeck[i].name + '' + ascii_char + '';
-// 		document.body.appendChild(div);
-// 	}
-// }
-
-function card(value, name, suit) {
-	this.value = value;
-	this.name = name;
-	this.suit = suit;
+window.onload = function() {
+  var rows = document.getElementsByClassName('gameboard')[0].children;
+  rows[0].children[0].children[0].appendChild(createCard('fuck off'));
 }
 
-function deck() {
-	this.names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-	this.suits = ['Hearts','Diamonds','Spades','Clubs'];
-	var cards = [];
-    
-    for (var s = 0; s < this.suits.length; s++) {
-        for (var n = 0; n < this.names.length; n++) {
-            cards.push(new card( n+1, this.names[n], this.suits[s]));
-        }
-    }
+function createCard(card) {
+	var value = getValue(Math.floor(Math.random() * 13) + 2); // switch to get card value
+	var suite = getSuite(getRandomSuite()); // switch to get card suite
+  var color = (suite == '&hearts;' || suite == '&diams') ? 'cardRed' : 'cardBlack';
 
-    return cards;
+  var cardDiv = document.createElement('div')
+  cardDiv .setAttribute('class', 'outline rounded ' + color);
+  cardDiv.innerHTML = '<div class="top"><span>'+value+'</span><span>'+suite+'</span></div><h1>'+suite+'</h1><div class="bottom"><span>'+suite+'</span><span>'+value+'</span></div>';
+  
+  return cardDiv;
 }
 
-function shuffle(o) {
-	for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-	return o;
-};
+function getSuite(suite) {
+  if (suite == 'diamonds') { return '&diams;'; }
+  else { return '&' + suite + ';'; }
+}
 
-x`z`
+function getValue(value) {
+  switch(value) {
+    case 11:
+      return 'J';
+    case 12:
+      return 'Q';
+    case 13:
+      return 'K';
+    case 14:
+      return 'A';
+    default:
+      return value;
+  }
+}
+
+// ----------------------------------------------------------------------------------------
+
+function getRandomSuite() {
+  var suites = ['hearts', 'clubs', "diamonds", "spades"];
+  return suites[(Math.floor(Math.random() * 4))];
+}
