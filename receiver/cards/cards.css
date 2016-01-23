@@ -1,0 +1,34 @@
+/* Gameboard */
+.gameboard {
+	width: 500px;
+	height: 500px;
+}
+
+.cardRow {
+	width: 100%;
+	height: 25%;
+}
+
+.cardContainer {
+	height: 100%;
+	margin: 0 auto;
+	display: table;
+}
+
+.cardSlot {
+	height: 100%;
+	width: 100px;
+	float: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+/* Cards */
+.outline{ width: 100px; border: 0px solid black; text-align: center; }
+.top{ text-align: left; }
+.bottom{ text-align: right; }
+.rounded{ border-radius:10px; }
+.cardRed { color: #FF0000 }
+.cardBlack { color: #000000 }

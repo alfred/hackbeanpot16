@@ -28,7 +28,7 @@ window.onload = function() {
     } else {
       // Cap number of players, fuck big groups
       if ( gameStateObject['numberConnected'] === gameStateObject['numberOfPlayers'] ) {
-        window.messageBus.send( event.senderId, 'From Chromecast:' + 'MAX_PLAYERS_REACHED' )
+        window.messageBus.send( event.senderId, 'MAX_PLAYERS_REACHED' )
       } else {
         askForAName( event.senderId );
         // Increment numberConnected
@@ -98,6 +98,11 @@ window.onload = function() {
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
       break;
+      case 'START_GAME': // Host starts the game
+        // drawGameboard
+        window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
+        showScreen('gameboard');
+      break;
     }
   }
 
@@ -107,6 +112,7 @@ window.onload = function() {
 };
 
 function pickCard( pick ) {
+  console.log( pick );
 
 };
 
