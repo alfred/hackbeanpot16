@@ -52,6 +52,30 @@ div#container {
   margin: 0;
 }
 
+/** Choose Players */
+.choose-players {
+  margin-top: 250px;
+  display: none;
+}
+
+.choose-players {
+  width: 1270px;
+  height: 100%;
+  text-align: center;
+}
+
+.choose-players h2 {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.player-choices {
+  display: inline-block;
+  padding: 15px;
+  width: 40px;
+}
+
 /** Show Connected */
 .show-connected {
   margin-top: 300px;
