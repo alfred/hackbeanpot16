@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GamePackCast</string>
+    <string name="media_route_menu_title">GamePackCast</string>
 </resources>
