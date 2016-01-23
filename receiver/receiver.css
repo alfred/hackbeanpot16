@@ -37,7 +37,7 @@ div#container {
 /** Splash screen */
 .splash {
   margin-top: 300px;
-  /*display: none;*/
+  display: none;
 }
 
 .splash div {
@@ -78,11 +78,14 @@ div#container {
 
 /** Show Connected */
 .show-connected {
-  margin-top: 300px;
+  margin-top: 75px;
   text-align: center;
   display: none;
 }
 
-.show-connected .player {
-  display: inline-block;
+.show-connected .player-name {
+  visibility: hidden;
+  padding: 5px 15px;
+  width: 100px;
+  margin: auto;
 }

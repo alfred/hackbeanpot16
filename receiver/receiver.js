@@ -61,7 +61,8 @@ window.onload = function() {
         gameStateObject[ event.senderId ] = {
           'name' : messageData[ 1 ],
           'playerNumber' : gameStateObject['numberConnected']
-        }
+        };
+        displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
       break;
       case 'NUM_PLAYERS':
         gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
@@ -109,3 +110,10 @@ function setupGame() {
   };
 }
 
+function displayPlayerName( playerNumber, playerName ) {
+  var playerNameElements = document.getElementsByClassName('player-name');
+  // -1 cause player numbers are 1-4 and arrays are indexed by 0
+  var playerNameElement = playerNameElements[ playerNumber - 1 ];
+  playerNameElement.style.visibility = 'visible';
+  playerNameElement.innerHTML = '<p>' + playerName  + '</p>';
+}
