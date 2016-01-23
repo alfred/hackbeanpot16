@@ -22,7 +22,6 @@ public class EnterName extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_name);
 
-        Log.i(TAG, "test");
         mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);

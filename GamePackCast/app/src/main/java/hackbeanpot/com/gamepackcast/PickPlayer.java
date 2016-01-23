@@ -19,7 +19,7 @@ public class PickPlayer extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_drink);
-        Log.i(TAG, "test");
+
         mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);
@@ -28,7 +28,7 @@ public class PickPlayer extends MainActivity {
         Button playerTwoButton = (Button) findViewById(R.id.player2);
         Button playerThreeButton = (Button) findViewById(R.id.player3);
         Button playerFourButton = (Button) findViewById(R.id.player4);
-
+        //TODO dynamically chance text of buttons to player names
         playerOneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sendMessage("PICK_PLAYER:1");

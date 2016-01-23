@@ -19,7 +19,7 @@ public class PickCard extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_card);
-        Log.i(TAG, "test");
+
         mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);

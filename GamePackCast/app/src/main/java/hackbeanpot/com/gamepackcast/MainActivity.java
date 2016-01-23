@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             if (mApiClient == null) {
                 // We got disconnected while this runnable was pending
                 // execution.
-                Log.e(TAG, "what the fuck man");
+                Log.e(TAG, "disconnected in onconnected");
                 return;
             }
 
@@ -338,7 +338,6 @@ public class MainActivity extends AppCompatActivity {
                                 mApplicationStarted = true;
 
                                 mHelloWorldChannel = new HelloWorldChannel();
-                                Log.i(TAG, "we're here for some reason");
                                 try {
                                     Cast.CastApi.setMessageReceivedCallbacks(mApiClient,
                                             mHelloWorldChannel.getNamespace(),
@@ -359,6 +358,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void intentSwitcher(String message) {
         Log.i(TAG, "Intent switcher:" + message);
+        //TODO dynamically chance text of buttons to player names
         if (message.equals("ENTER_NAME")) {
             Log.i(TAG, "switching to enter name");
             Intent intent = new Intent(this, EnterName.class);
@@ -399,16 +399,17 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SmokeFire.class);
             startActivity(intent);
         }
-        else if (message.contains("SMOKE_FIRE_SUCCESS")) {
+        else if (message.equals("SMOKE_FIRE_SUCCESS")) {
             Log.i(TAG, "switching to PickPlayer");
             Intent intent = new Intent(this, PickPlayer.class);
             startActivity(intent);
         }
-        /*else if (message.equals("FAILURE")) {
-            Log.i(TAG, "switching to DRINK!");
-            Intent intent = new Intent(this, Drink.class);
+        //TODO make a 2nd screen for failure
+        else if (message.equals("FAILURE")) {
+            Log.i(TAG, "switching to failure screen");
+            Intent intent = new Intent(this, Waiting.class);
             startActivity(intent);
-        }*/
+        }
         else if (message.equals("MAX_PLAYERS_REACHED")) {
             Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG).show();
         }

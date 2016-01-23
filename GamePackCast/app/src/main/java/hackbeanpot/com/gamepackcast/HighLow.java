@@ -21,7 +21,6 @@ public class HighLow extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.high_low);
 
-        Log.i(TAG, "test");
         mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);

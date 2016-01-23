@@ -20,7 +20,6 @@ public class InsideOutside extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inside_outside);
 
-        Log.i(TAG, "test");
         mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);

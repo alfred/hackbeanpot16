@@ -21,7 +21,6 @@ public class SmokeFire extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.smoke_fire);
 
-        Log.i(TAG, "test");
         mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);
