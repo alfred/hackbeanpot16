@@ -315,13 +315,13 @@ public class MainActivity extends AppCompatActivity {
      * Send a text message to the receiver
      */
      protected void sendMessage(String message) {
-        Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);
         if (mApiClient == null) {
             mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
         }
         if (mHelloWorldChannel == null) {
             mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
         }
+        Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);
         if (mApiClient != null && mHelloWorldChannel != null) {
             try {
                 Cast.CastApi.sendMessage(mApiClient,
