@@ -1,13 +1,52 @@
-body, html {
-  height: 710px;
-  width: 1270px;
-  overflow: hidden;
+
+* {
+  box-sizing: border-box;
 }
 
-#container {
-  height: 100%;
-  width: 100%;
+html {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
 
-  background-color: #000;
-  color: #FFF;
+body {
+  background-color: #e7e7e7;
+  color: #333;
+  margin: 0;
+  padding: 0 0 15px 0;
+}
+
+div#container {
+  // offset for borders
+  max-width: 1270px;
+  margin: 0 auto;
+  top: 0;
+  border-left: 15px solid white;
+  border-right: 15px solid white;
+  background-color: white;
+
+}
+
+.row {
+  float: left;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+/** Splash screen */
+.splash {
+  margin-top: 300px;
+}
+
+.splash div {
+  width: 1270px;
+  height: 100%;
+  text-align: center;
+}
+
+.splash div h2, .splash div h1 {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
 }
