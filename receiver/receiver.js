@@ -20,7 +20,7 @@ window.onload = function() {
     console.log('Received Sender Disconnected event: ' + event.data );
     // If everyone disconnects close the window
     if ( window.castReceiverManager.getSenders().length == 0 ) {
-      window.close(); // Definitely doesn't do anything
+      window.close();
     }
   };
 
