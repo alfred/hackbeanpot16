@@ -101,7 +101,7 @@ window.onload = function() {
       case 'START_GAME': // Host starts the game
         // drawGameboard
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
-        showScreen('game-board');
+        showScreen('gameboard');
       break;
     }
   }
