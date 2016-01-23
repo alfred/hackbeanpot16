@@ -28,7 +28,7 @@ window.onload = function() {
     } else {
       // Cap number of players, fuck big groups
       if ( gameStateObject['numberConnected'] === gameStateObject['numberOfPlayers'] ) {
-        window.messageBus.send( event.senderId, 'From Chromecast:' + 'MAX_PLAYERS_REACHED' )
+        window.messageBus.send( event.senderId, 'MAX_PLAYERS_REACHED' )
       } else {
         askForAName( event.senderId );
         // Increment numberConnected
