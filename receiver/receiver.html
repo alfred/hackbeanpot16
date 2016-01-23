@@ -5,6 +5,28 @@
   <title>Game Pack Cast Hack </title>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/games/1.0.0/cast_games_receiver.js"></script>
+  <script type="text/javascript">
+    window.mediaElement = document.getElementById('container');
+    window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
+    window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+    window.castReceiverManager.start({
+      statusText: 'Ready to fucking play boys',
+      maxInactivity: 60000
+    });
+
+    window.castReceiverManager.onSenderDisconnected = function(event) {
+      if(window.castReceiverManager.getSenders().length == 0 &&
+        event.reason == cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
+          window.close();
+      }
+    };
+
+    // Gets how many people are connected
+    var getNumberOfCurrentlyConnected = function() {
+      window.castReceiverManager.getSenders()
+    }
+
+  </script>
 </head>
 <body>
   <div id="container">
