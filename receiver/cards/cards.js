@@ -1,11 +1,10 @@
 window.onload = function() {
-  // var rows = document.getElementsByClassName('gameboard')[0].children;
-  // rows[0].children[0].children[0].appendChild(createCard('fuck off'));
+  placeCards();
 }
 
 function createCard(card) {
-	var value = getValue(card.value);
-	var suite = getSuit(card.suit);
+	var value = getValue(Math.floor(Math.random() * 13) + 2); // card.value
+	var suite = getSuite(getRandomSuite()); // card.suit
   var color = (suite == '&hearts;' || suite == '&diams') ? 'cardRed' : 'cardBlack';
 
   var cardDiv = document.createElement('div')
@@ -33,4 +32,24 @@ function getValue(value) {
     default:
       return value;
   }
+}
+
+// ----------------------------------------------------------------------------------------
+
+function placeCards() {
+  var rows = document.getElementsByClassName('gameboard')[0].children;
+  for(i=0; i < rows.length; i++) {
+    var slots = rows[i].children;
+    for(j=0; j < slots.length; j++) {
+      var cards = slots[j].children;
+      for(k=0; k < cards.length; k++) {
+        cards[k].appendChild(createCard('how does this work'));
+      }
+    }
+  }
+}
+
+function getRandomSuite() {
+  var suites = ['hearts', 'clubs', "diamonds", "spades"];
+  return suites[(Math.floor(Math.random() * 4))];
 }
