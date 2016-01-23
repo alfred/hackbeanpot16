@@ -13,6 +13,7 @@ window.onload = function() {
   castReceiverManager.onSenderConnected = function(event) {
     console.log('Received Sender Connected event: ' + event.data );
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
+    showScreen( 'splash' );
   };
 
   // handler for 'senderdisconnected' event
@@ -41,7 +42,7 @@ window.onload = function() {
     displayText( event.data );
     // inform all senders on the CastMessageBus of the incoming message event
     // sender message listener will be invoked
-    window.messageBus.send( event.senderId, event.data );
+    window.messageBus.send( event.senderId, 'From Chromecast:' + event.data );
   }
 
   // initialize the CastReceiverManager with an application status message
@@ -55,3 +56,11 @@ function displayText( text ) {
   document.getElementsByTagName('p')[ 0 ].innerHTML = text;
   window.castReceiverManager.setApplicationState( text );
 };
+
+function showScreen( screenClassName ) {
+  document.getElementsByClassName('row').forEach( function( row ) {
+    row.style.display = 'none';
+  });
+
+  document.getElementsByClassName( screenClassName )[ 0 ].style.display = 'block';
+}

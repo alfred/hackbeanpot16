@@ -37,6 +37,7 @@ div#container {
 /** Splash screen */
 .splash {
   margin-top: 300px;
+  /*display: none;*/
 }
 
 .splash div {
@@ -49,4 +50,15 @@ div#container {
   display: inline-block;
   vertical-align: middle;
   margin: 0;
+}
+
+/** Show Connected */
+.show-connected {
+  margin-top: 300px;
+  text-align: center;
+  display: none;
+}
+
+.show-connected .player {
+  display: inline-block;
 }
