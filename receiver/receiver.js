@@ -15,7 +15,7 @@ window.onload = function() {
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
     window.messageBus.send( event.senderId, 'From Chromecast:' + event.data );
     showScreen( 'splash' );
-    setTimeout( showScreen( 'choose-players' , 2500);
+    setTimeout( showScreen( 'choose-players' , 2500) );
   };
 
   // handler for 'senderdisconnected' event
