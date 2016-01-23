@@ -83,6 +83,21 @@ window.onload = function() {
         askForAName( gameStateObject['hostSenderId'] );
 
       break;
+      case '': // pick a card
+
+      break;
+      case '': // higher or lower
+
+      break;
+      case '': // inside or outside
+
+      break;
+      case '': // smoke or fire
+
+      break;
+      case '': // pick a player to drink
+        
+      break;
     }
   }
 
