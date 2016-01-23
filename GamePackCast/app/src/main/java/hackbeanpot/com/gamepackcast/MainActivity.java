@@ -404,7 +404,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PickPlayer.class);
             startActivity(intent);
         }
-        //TODO make a 2nd screen for failure
+        /* TODO make a 2nd screen for failure
+        just using the waiting screen atm */
         else if (message.equals("FAILURE")) {
             Log.i(TAG, "switching to failure screen");
             Intent intent = new Intent(this, Waiting.class);
