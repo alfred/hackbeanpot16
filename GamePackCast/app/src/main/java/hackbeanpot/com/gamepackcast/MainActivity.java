@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     .addConnectionCallbacks(mConnectionCallbacks)
                     .addOnConnectionFailedListener(mConnectionFailedListener)
                     .build();
-
+            ((MyApplication) this.getApplication()).setmApiClient(mApiClient);
             mApiClient.connect();
         } catch (Exception e) {
             Log.e(TAG, "Failed launchReceiver", e);
@@ -223,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                                                 // Create the custom message
                                                 // channel
                                                 mHelloWorldChannel = new HelloWorldChannel();
+                                                setHelloWorldChannel(mHelloWorldChannel);
                                                 Log.i(TAG, "hello world channel created");
                                                 try {
                                                     Cast.CastApi.setMessageReceivedCallbacks(
@@ -255,6 +256,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onConnectionSuspended");
             mWaitingForReconnect = true;
         }
+    }
+
+    private void setHelloWorldChannel(HelloWorldChannel mHelloWorldChannel) {
+        ((MyApplication) this.getApplication()).setmHelloWorldChannel(mHelloWorldChannel);
     }
 
     /**
@@ -310,6 +315,13 @@ public class MainActivity extends AppCompatActivity {
      * Send a text message to the receiver
      */
      protected void sendMessage(String message) {
+        Log.i(TAG, "mApiClient: " + mApiClient + " mHelloWorldChannel: " + mHelloWorldChannel);
+        if (mApiClient == null) {
+            mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
+        }
+        if (mHelloWorldChannel == null) {
+            mHelloWorldChannel = ((MyApplication) this.getApplication()).getmHelloWorldChannel();
+        }
         if (mApiClient != null && mHelloWorldChannel != null) {
             try {
                 Cast.CastApi.sendMessage(mApiClient,
@@ -345,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void intentSwitcher(String message) {
+    private void intentSwitcher(String message) {
         Log.i(TAG, "Intent switcher:" + message);
         if (message.equals("ENTER_NAME")) {
             Log.i(TAG, "switching to enter name");
@@ -356,6 +368,19 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "switching to enter num players");
             Intent intent = new Intent(this, NumPlayers.class);
             startActivity(intent);
+        }
+        else if (message.equals("ACTIVATE_START_BUTTON")) {
+            Log.i(TAG, "switching to start button");
+            Intent intent = new Intent(this, StartGame.class);
+            startActivity(intent);
+        }
+        else if (message.equals("NAME_RECEIVED")) {
+            Log.i(TAG, "switching to waiting for players");
+            Intent intent = new Intent(this, Waiting.class);
+            startActivity(intent);
+        }
+        else if (message.equals("MAX_PLAYERS_REACHED")) {
+            Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG);
         }
     }
 

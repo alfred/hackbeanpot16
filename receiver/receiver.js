@@ -16,7 +16,7 @@ window.onload = function() {
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
 
     // window.messageBus.send( event.senderId, 'From Chromecast:' + event.data )
-    if (typeof gameStateObject.hostSenderId === 'undefined') {
+    if ( gameStateObject.hostSenderId === '' ) {
       gameStateObject.hostSenderId = event.senderId;
       showScreen( 'splash' );
       setTimeout( function() {
@@ -26,9 +26,14 @@ window.onload = function() {
         askForNumberOfPlayers( gameStateObject.hostSenderId );
       }, 2500 );
     } else {
-      askForAName( event.senderId );
-      // Increment numberConnected
-      gameStateObject['numberConnected']++;
+      // Cap number of players, fuck big groups
+      if ( gameStateObject['numberConnected'] === gameStateObject['numberOfPlayers'] ) {
+        window.messageBus.send( event.senderId, 'MAX_PLAYERS_REACHED' )
+      } else {
+        askForAName( event.senderId );
+        // Increment numberConnected
+        gameStateObject['numberConnected']++;
+      }
     }
   };
 
@@ -59,13 +64,39 @@ window.onload = function() {
     switch ( messageData[ 0 ] ) {
       case 'NAME_ENTERED':
         gameStateObject[ event.senderId ] = {
-          'name' : messageData[ 1 ]
+          'name' : messageData[ 1 ],
+          'playerNumber' : gameStateObject['numberConnected']
+        };
+        displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
+
+        if ( event.senderId === gameStateObject['hostSenderId'] ) {
+          sendStartGame( event.senderId );
+        } else {
+          sendNameAck( event.senderId );
         }
       break;
       case 'NUM_PLAYERS':
         gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
+        // Move to the player list screen
+        showScreen('show-connected');
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
+        showScreen('show-connected');
+      break;
+      case 'PICK_CARD': // pick a card from row 1
+        pickCard( messageData[ 1 ] );
+      break;
+      case 'HIGHER_OR_LOWER': // higher or lower from row 2
+        higherOrLower( messageData[ 1 ] );
+      break;
+      case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
+        insideOrOutside( messageData[ 1 ] );
+      break;
+      case 'SMOKE_OR_FIRE': // smoke or fire from row 4
+        smokeOrFire( messageData[ 1 ] );
+      break;
+      case 'PICK_PLAYER': // pick a player to drink
+        pickPlayer( messageData[ 1 ] );
       break;
     }
   }
@@ -73,6 +104,26 @@ window.onload = function() {
   // initialize the CastReceiverManager with an application status message
   window.castReceiverManager.start( { statusText : "Application is starting" } );
   console.log('Receiver Manager started');
+};
+
+function pickCard( pick ) {
+
+};
+
+function higherOrLower( pick) {
+
+};
+
+function insideOrOutside( pick ) {
+
+};
+
+function smokeOrFire( pick ) {
+
+};
+
+function pickPlayer( pick ) {
+
 };
 
 // utility function to display the text message in the input field
@@ -83,7 +134,9 @@ function displayText( text ) {
 };
 
 function showScreen( screenClassName ) {
-  document.getElementsByClassName('row').forEach( function( row ) {
+  var allRows = document.getElementsByClassName('row');
+  var arr = [].slice.call( allRows );
+  arr.forEach( function( row ) {
     row.style.display = 'none';
   });
 
@@ -102,8 +155,22 @@ function setupGame() {
   return {
     hostSenderId: '',
     numberOfPlayers: '',
-    numberConnected: '',
-
+    numberConnected: ''
   };
 }
 
+function displayPlayerName( playerNumber, playerName ) {
+  var playerNameElements = document.getElementsByClassName('player-name');
+  // -1 cause player numbers are 1-4 and arrays are indexed by 0
+  var playerNameElement = playerNameElements[ playerNumber - 1 ];
+  playerNameElement.style.visibility = 'visible';
+  playerNameElement.innerHTML = '<p>' + playerName  + '</p>';
+}
+
+function sendStartGame( senderId ) {
+  window.messageBus.send( senderId, 'ACTIVATE_START_BUTTON' );
+}
+
+function sendNameAck( senderId ) {
+  window.messageBus.send( senderId, 'NAME_RECEIVED' );
+}
