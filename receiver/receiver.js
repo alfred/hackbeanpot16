@@ -27,7 +27,7 @@ window.onload = function() {
       }, 2500 );
     } else {
       // Cap number of players, fuck big groups
-      if ( numberConnected === 4) {
+      if ( gameStateObject['numberConnected'] === gameStateObject['numberOfPlayers'] ) {
         window.messageBus.send( event.senderId, 'From Chromecast:' + 'MAX_PLAYERS_REACHED' )
       } else {
         askForAName( event.senderId );
@@ -68,6 +68,12 @@ window.onload = function() {
           'playerNumber' : gameStateObject['numberConnected']
         };
         displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
+
+        if ( event.senderId === gameStateObject['hostSenderId'] ) {
+          sendStartGame( event.senderId );
+        } else {
+          sendNameAck( event.senderId );
+        }
       break;
       case 'NUM_PLAYERS':
         gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
@@ -75,6 +81,7 @@ window.onload = function() {
         showScreen('show-connected');
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
+
       break;
     }
   }
@@ -123,4 +130,12 @@ function displayPlayerName( playerNumber, playerName ) {
   var playerNameElement = playerNameElements[ playerNumber - 1 ];
   playerNameElement.style.visibility = 'visible';
   playerNameElement.innerHTML = '<p>' + playerName  + '</p>';
+}
+
+function sendStartGame( senderId ) {
+  window.messageBus.send( senderId, 'ACTIVATE_START_BUTTON' );
+}
+
+function sendNameAck( senderId ) {
+  window.messageBus.send( senderId, 'NAME_RECEIVED' );
 }
