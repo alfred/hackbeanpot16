@@ -16,7 +16,7 @@ window.onload = function() {
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
 
     // window.messageBus.send( event.senderId, 'From Chromecast:' + event.data )
-    if (typeof gameStateObject.hostSenderId === 'undefined') {
+    if ( gameStateObject.hostSenderId === '' ) {
       gameStateObject.hostSenderId = event.senderId;
       showScreen( 'splash' );
       setTimeout( function() {
@@ -102,8 +102,7 @@ function setupGame() {
   return {
     hostSenderId: '',
     numberOfPlayers: '',
-    numberConnected: '',
-
+    numberConnected: ''
   };
 }
 
