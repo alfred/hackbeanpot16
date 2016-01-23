@@ -355,7 +355,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if (message.equals(prefix + "ENTER_NUM_PLAYERS")) {
-
+            Log.i(TAG, "switching to enter num players");
+            Intent intent = new Intent(this, NumPlayers.class);
+            startActivity(intent);
         }
     }
 
