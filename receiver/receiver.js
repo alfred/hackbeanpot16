@@ -81,22 +81,22 @@ window.onload = function() {
         showScreen('show-connected');
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
-
+        showScreen('show-connected');
       break;
-      case '': // pick a card
-
+      case 'PICK_CARD': // pick a card from row 1
+        pickCard( messageData[ 1 ] );
       break;
-      case '': // higher or lower
-
+      case 'HIGHER_OR_LOWER': // higher or lower from row 2
+        higherOrLower( messageData[ 1 ] );
       break;
-      case '': // inside or outside
-
+      case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
+        insideOrOutside( messageData[ 1 ] );
       break;
-      case '': // smoke or fire
-
+      case 'SMOKE_OR_FIRE': // smoke or fire from row 4
+        smokeOrFire( messageData[ 1 ] );
       break;
-      case '': // pick a player to drink
-        
+      case 'PICK_PLAYER': // pick a player to drink
+        pickPlayer( messageData[ 1 ] );
       break;
     }
   }
@@ -104,6 +104,26 @@ window.onload = function() {
   // initialize the CastReceiverManager with an application status message
   window.castReceiverManager.start( { statusText : "Application is starting" } );
   console.log('Receiver Manager started');
+};
+
+function pickCard( pick ) {
+
+};
+
+function higherOrLower( pick) {
+
+};
+
+function insideOrOutside( pick ) {
+
+};
+
+function smokeOrFire( pick ) {
+
+};
+
+function pickPlayer( pick ) {
+
 };
 
 // utility function to display the text message in the input field
