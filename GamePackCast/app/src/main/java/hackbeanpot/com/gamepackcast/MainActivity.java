@@ -7,18 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.MediaRouteActionProvider;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.cast.ApplicationMetadata;
 import com.google.android.gms.cast.Cast;
 import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 
 /**
  * Created by matcp_000 on 1/22/2016.
@@ -48,14 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         MediaRouter.RouteInfo route = mRouter.updateSelectedRoute(mSelector);
         // do something with the route...
-        Cast.CastOptions.Builder apiOptionsBuilder = Cast.CastOptions
-                .builder(mSelectedDevice, mCastClientListener);
-
-        mApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Cast.API, apiOptionsBuilder.build())
-                .addConnectionCallbacks(mCallback)
-                .addOnConnectionFailedListener(mCallback)
-                .build();
     }
 
     // Remove the selector on stop to tell the media router that it no longer
@@ -93,52 +80,5 @@ public class MainActivity extends AppCompatActivity {
             mSelectedDevice = null;
         }
     }
-    private class ConnectionCallbacks implements
-            GoogleApiClient.ConnectionCallbacks {
-        @Override
-        public void onConnected(Bundle connectionHint) {
-            if (mWaitingForReconnect) {
-                mWaitingForReconnect = false;
-                reconnectChannels();
-            } else {
-                try {
-                    Cast.CastApi.launchApplication(mApiClient, "YOUR_APPLICATION_ID", false)
-                            .setResultCallback(
-                                    new ResultCallback<Cast.ApplicationConnectionResult>() {
-                                        @Override
-                                        public void onResult(Cast.ApplicationConnectionResult result) {
-                                            Status status = result.getStatus();
-                                            if (status.isSuccess()) {
-                                                ApplicationMetadata applicationMetadata =
-                                                        result.getApplicationMetadata();
-                                                String sessionId = result.getSessionId();
-                                                String applicationStatus = result.getApplicationStatus();
-                                                boolean wasLaunched = result.getWasLaunched();
-                                                //...
-                                            } else {
-                                                //teardown();
-                                            }
-                                        }
-                                    });
-
-                } catch (Exception e) {
-                    //Log.e(TAG, "Failed to launch application", e);
-                }
-            }
-        }
-
-        @Override
-        public void onConnectionSuspended(int cause) {
-            mWaitingForReconnect = true;
-        }
-    }
-
-    private class ConnectionFailedListener implements
-            GoogleApiClient.OnConnectionFailedListener {
-        @Override
-        public void onConnectionFailed(ConnectionResult result) {
-            //teardown();
-        }
-    }
 }
-}
+
