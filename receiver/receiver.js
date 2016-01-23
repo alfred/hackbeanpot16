@@ -59,7 +59,8 @@ window.onload = function() {
     switch ( messageData[ 0 ] ) {
       case 'NAME_ENTERED':
         gameStateObject[ event.senderId ] = {
-          'name' : messageData[ 1 ]
+          'name' : messageData[ 1 ],
+          'playerNumber' : gameStateObject['numberConnected']
         }
       break;
       case 'NUM_PLAYERS':
