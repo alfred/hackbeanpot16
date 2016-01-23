@@ -83,7 +83,9 @@ function displayText( text ) {
 };
 
 function showScreen( screenClassName ) {
-  document.getElementsByClassName('row').forEach( function( row ) {
+  var allRows = document.getElementsByClassName('row');
+
+  allRows.forEach( function( row ) {
     row.style.display = 'none';
   });
 
