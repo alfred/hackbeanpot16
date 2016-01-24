@@ -116,6 +116,7 @@ window.onload = function() {
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         if ( smokeOrFire( messageData[ 1 ] ) ) {
           window.messageBus.send( event.senderId, 'SMOKE_OR_FIRE_SUCCESS' ); // ??????
+
         } else {
           window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
           changeTurn();
@@ -144,6 +145,7 @@ function changeTurn() {
   console.log(gameStateObject.turn);
   gameStateObject.turn = (gameStateObject.turn + 1) % gameStateObject.playersList.length;
   console.log(gameStateObject.turn);
+  flipAllDown();
   showScreen('gameboard');
   placeCards( gameStateObject );
   window.messageBus.send( gameStateObject.playersList[gameStateObject.turn], 'GAME_HAS_STARTED' );
