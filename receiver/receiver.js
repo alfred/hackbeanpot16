@@ -324,9 +324,11 @@ function sendNameAck( senderId ) {
 }
 
 function sendLoseMessage( senderId ) {
-  showScreen('failure');
   window.messageBus.send( senderId, 'FAILURE' );
   setTimeout( function() {
-    changeTurn();
+    showScreen('failure');
+    setTimeout( function() {
+      changeTurn();
+    }, 2500 );
   }, 2500 );
 }
