@@ -167,7 +167,7 @@ function higherOrLower( choice ) {
   var isHigher = playerPickValue < secondPickValue;
   var isLower = playerPickValue > secondPickValue;
 
-  return (choice == 'higher' && isHigher ) || (choice == 'lower' &&  isLower );
+  return (choice == 'HIGHER' && isHigher ) || (choice == 'LOWER' &&  isLower );
 };
 
 // choice is the string "inside" or "outside"
