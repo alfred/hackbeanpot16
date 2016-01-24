@@ -143,8 +143,6 @@ div#container {
 .gameboard .top {
   text-align: left;
   margin-left: 5px;
-  padding-bottom: 15px;
-  margin-top: 10px;
 }
 .gameboard .bottom{ text-align: right; margin-right: 5px; }
 .gameboard .rounded{ border-radius:10px; }
