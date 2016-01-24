@@ -142,6 +142,22 @@ function pickPlayer( choice ) {
   // Sends a message to that player to drink ayyy
 };
 
+function flipAllUp() {
+  var cards = document.getElementsByClassName('cardWrapper');
+  for(var i=0; i<cards.length; i++) {
+    cards[i].children[0].style.display = 'block';
+    cards[i].children[1].style.display = 'none';
+  }
+}
+
+function flipAllDown() {
+  var cards = document.getElementsByClassName('cardWrapper');
+  for(var i=0; i<cards.length; i++) {
+    cards[i].children[0].style.display = 'none';
+    cards[i].children[1].style.display = 'block';
+  }
+}
+
 function flipFirstRow( cardNum, cardChosen ) {
   flipRow(1, cardNum, cardChosen);
 };
