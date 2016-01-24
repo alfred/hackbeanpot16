@@ -101,6 +101,7 @@ window.onload = function() {
       break;
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
+        window.messageBus.send( event.senderId, 'PICK_PLAYER_SUCESS' );
       break;
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
