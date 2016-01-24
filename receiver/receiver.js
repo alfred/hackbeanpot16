@@ -1,6 +1,10 @@
+var playerPick;
+var secondPick;
+
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
   var gameStateObject = setupGame();
+  console.log(gameStateObject);
   window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   console.log('Starting Receiver Manager');
 
@@ -116,26 +120,86 @@ window.onload = function() {
   console.log('Receiver Manager started');
 };
 
+function pickRandom( array ) {
+  var max = array.length;
+  var min = 0;
+  var index = Math.floor(Math.random() * (max - min) + min);
+
+  return array[ index ];
+}
+
 function chooseCard( cardNumber ) {
+  console.log('chooseCard');
   var firstRow = document.getElementsByClassName('cardContainer')[ 3 ].children;
-  firstRow[ cardNumber - 1 ].style.backgroundColor = "#FBF6E2";
+  var card = firstRow[ cardNumber - 1 ];
+  card.style.backgroundColor = "#FBF6E2";
+  playerPick = card;
 };
 
 // choice is the string "higher" or "lower"
 function higherOrLower( choice ) {
+  console.log('higherOrLower');
   var secondRow = document.getElementsByClassName('cardContainer')[ 2 ].children;
-  // firstRow[ cardNumber - 1 ].style.backgroundColor = "#FBF6E2";
+  secondPick = pickRandom( secondRow );
+  secondPick.style.backgroundColor = "#FBF6E2";
+
+  var isHigher = playerPick.value > secondPick.value;
+  var isLower = playerPick.value < secondPick.value;
+
+  console.log(isHigher);
+  console.log(isLower);
+
+  if ( (choice == 'higher' && isHigher ) ||
+       (choice == 'lower' &&  isLower ) ) {
+    console.log('true');
+  } else {
+    console.log('false');
+  }
 };
 
 // choice is the string "inside" or "outside"
 function insideOrOutside( choice ) {
+  console.log('insideOrOutside');
   var thirdRow = document.getElementsByClassName('cardContainer')[ 1 ].children;
+  var randomCard = pickRandom( thirdRow );
+  randomCard.style.backgroundColor = "#FBF6E2";
+
+  var isInside = playerPick.value > Math.min(secondPick.value, randomCard.value) && 
+                 playerPick.value < Math.max(secondPick.value, randomCard.value);
+
+  var isOutside = playerPick.value < Math.min(secondPick.value, randomCard.value) ||
+                  playerPick.value > Math.max(secondPick.value, randomCard.value);
+
+  console.log(isInside);
+  console.log(isOutside);
+
+  if ( (choice == 'inside' &&  isInside ) ||
+       (choice == 'outside' &&  isOutside ) ) {
+    console.log('true');
+  } else {
+    console.log('false');
+  }
 };
 
 // choice is the string "smoke" or "fire"
 function smokeOrFire( choice ) {
+  console.log('smokeOrFire');
   var fourthRow = document.getElementsByClassName('cardContainer')[ 0 ].children;
-  // fourthRow[ 0 ];
+  var finalCard = fourthRow[ 0 ];
+  finalCard.style.backgroundColor = "#FBF6E2";
+
+  var isSmoke = (finalCard.suit == '&clubs' || finalCard.suit == '&spades');
+  var isFire = (finalCard.suit == '&hearts' || finalCard.suit == '&diams');
+
+  console.log(isSmoke);
+  console.log(isFire);
+
+  if((choice == 'smoke' && isSmoke ) ||
+     (choice == 'fire'  && isFire )) {
+    console.log('true');
+  } else {
+    console.log('false');
+  }
 };
 
 function pickPlayer( choice ) {
