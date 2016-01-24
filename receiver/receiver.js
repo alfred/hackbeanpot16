@@ -113,7 +113,7 @@ window.onload = function() {
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
         showScreen('gameboard');
-        // placeCards( gameStateObject );
+        placeCards( gameStateObject );
       break;
     }
   }
