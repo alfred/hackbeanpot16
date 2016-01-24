@@ -95,8 +95,13 @@ window.onload = function() {
         chooseCard( messageData[ 1 ] );
         window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
       break;
-      case 'HIGHER_OR_LOWER': // higher or lower from row 2
-        if ( higherOrLower( messageData[ 1 ] ) ) {
+      case 'HIGHER_OR_LOWER': // higher or lower from row 
+        var success = higherOrLower( messageData[ 1 ] );
+        console.log("Player Selection: ", messageData[1]);
+        console.log("Picked Card: ", playerPickValue, playerPickSuit);
+        console.log("Success?: ", success);
+
+        if (success) {
           window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' ); // ??????
         } else {
           window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
