@@ -4,6 +4,7 @@ var playerPickSuit;
 var secondPick;
 var secondPickValue;
 var secondPickSuit;
+var randomIndexChosen;
 
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
@@ -131,14 +132,6 @@ window.onload = function() {
   window.castReceiverManager.start( { statusText : "Application is starting" } );
   console.log('Receiver Manager started');
 };
-
-// function pickRandom( array ) {
-//   var max = array.length;
-//   var min = 0;
-//   var index = Math.floor(Math.random() * (max - min) + min);
-
-//   return array[ index ];
-// }
 
 function chooseCard( cardNumber ) {
   console.log('chooseCard');
