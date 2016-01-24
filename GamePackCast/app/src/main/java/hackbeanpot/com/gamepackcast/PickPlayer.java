@@ -29,6 +29,7 @@ public class PickPlayer extends MainActivity {
         Button playerThreeButton = (Button) findViewById(R.id.player3);
         Button playerFourButton = (Button) findViewById(R.id.player4);
         //TODO dynamically chance text of buttons to player names
+        //TODO hide buttons if there arent x number of players or whatever
         playerOneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sendMessage("PICK_PLAYER:1");
