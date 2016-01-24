@@ -138,6 +138,16 @@ div#container {
   overflow: hidden;
 }
 
+.gameboard .rules {
+  position: absolute;
+  margin-top: -50px;
+  margin-left: 600px;
+}
+
+.gameboard .rules > .rulesRow {
+  margin-bottom: 50px;
+}
+
 /* Cards */
 .gameboard .outline{ width: 100px; height: 100%; border: 0px solid black; text-align: center; }
 .gameboard .top {
