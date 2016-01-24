@@ -144,3 +144,7 @@ div#container {
 .gameboard .cardRed { color: #FF0000 }
 .gameboard .cardBlack { color: #000000 }
 
+.gameboard .outline.rounded h1 {
+  margin-bottom: 0;
+}
+

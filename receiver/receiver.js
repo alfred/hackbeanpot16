@@ -137,7 +137,6 @@ function chooseCard( cardNumber ) {
   console.log('chooseCard');
   var firstRow = document.getElementsByClassName('cardContainer')[ 3 ].children;
   var card = firstRow[ cardNumber - 1 ];
-  card.style.backgroundColor = "#FBF6E2";
   playerPick = card;
 
   flipFirstRow( cardNumber );
@@ -181,8 +180,8 @@ function insideOrOutside( choice ) {
   var isInside = thirdPickValue > Math.min(secondPickValue, playerPickValue) &&
                  thirdPickValue < Math.max(secondPickValue, playerPickValue);
 
-  var isOutside = thirdPickValue < Math.min(secondPick.value, playerPickValue) ||
-                  thirdPickValue > Math.max(secondPick.value, playerPickValue);
+  var isOutside = thirdPickValue < Math.min(secondPickValue, playerPickValue) ||
+                  thirdPickValue > Math.max(secondPickValue, playerPickValue);
 
   return ( (choice == 'inside' &&  isInside ) || (choice == 'outside' &&  isOutside ) );
 };
