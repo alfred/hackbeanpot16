@@ -113,7 +113,7 @@ window.onload = function() {
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         if ( smokeOrFire( messageData[ 1 ] ) ) {
-          window.messageBus.send( event.senderId, 'SMOKE_OR_FIRE_SUCCESS' ); // ??????
+          window.messageBus.send( event.senderId, 'SMOKE_FIRE_SUCCESS' ); // ??????
         } else {
           sendLoseMessage( event.senderId );
         }
@@ -221,6 +221,8 @@ function pickPlayer( playerToDrinkArrayIndex, senderId ) {
     changeTurn();
   }, 2500 );
 };
+
+function showWinning
 
 function flipAllUp() {
   var cards = document.getElementsByClassName('cardWrapper');
