@@ -5,6 +5,10 @@ function placeCards ( gameStateObject ) {
   var slots = document.getElementsByClassName('cardSlot')
   for(var i=0; i < slots.length; i++) {
     slots[i].innerHTML = "";
+
+    if (gameStateObject.deck.cards.length < 10) {
+      gameStateObject.deck = new Deck();
+    }
     slots[i].appendChild( createCard( gameStateObject.deck.pickCard() ) );
   }
 }
