@@ -89,7 +89,6 @@ window.onload = function() {
         showScreen('show-connected');
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
-        showScreen('show-connected');
       break;
       case 'PICK_CARD': // pick a card from row 1
         chooseCard( messageData[ 1 ] );
@@ -180,7 +179,7 @@ function insideOrOutside( choice ) {
   var thirdPickValue = thirdCard.getAttribute('data-card-value');
   var thirdPickSuit = thirdCard.getAttribute('data-card-suit');
 
-  var isInside = thirdPickValue > Math.min(secondPickValue, playerPickValue) && 
+  var isInside = thirdPickValue > Math.min(secondPickValue, playerPickValue) &&
                  thirdPickValue < Math.max(secondPickValue, playerPickValue);
 
   var isOutside = thirdPickValue < Math.min(secondPick.value, playerPickValue) ||
@@ -265,7 +264,7 @@ function flipRow( rowNum, cardNum, cardChosen ) {
 }
 
 function flipCard(card) {
-  if (isVisible(card.children[0])) { 
+  if (isVisible(card.children[0])) {
     // card is face up so flip it face down
     card.children[0].style.display = 'none';
     card.children[1].style.display = 'block';
