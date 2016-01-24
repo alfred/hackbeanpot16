@@ -114,15 +114,12 @@ window.onload = function() {
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         if ( smokeOrFire( messageData[ 1 ] ) ) {
           window.messageBus.send( event.senderId, 'SMOKE_OR_FIRE_SUCCESS' ); // ??????
-
         } else {
           sendLoseMessage( event.senderId );
         }
       break;
       case 'PICK_PLAYER': // pick a player to drink
-        pickPlayer( messageData[ 1 ] );
-        window.messageBus.send( event.senderId, 'PICK_PLAYER_SUCCESS' );
-        changeTurn();
+        pickPlayer( messageData[ 1 ], event.senderId );
       break;
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
@@ -213,8 +210,16 @@ function smokeOrFire( choice ) {
   return ( ( choice == 'SMOKE' && isSmoke ) || ( choice == 'FIRE'  && isFire ) );
 };
 
-function pickPlayer( choice ) {
-  // Sends a message to that player to drink ayyy
+function pickPlayer( playerToDrinkArrayIndex, senderId ) {
+  var playerIdChosen = gameStateObject['playersList'][ playerToDrinkArrayIndex - 1 ];
+  var playerObjectChosen = gameStateObject[ playerIdChosen ];
+  var nameDisplayElement = document.getElementsByClassName('success-player-name')[ 0 ];
+  nameDisplayElement.innerHTML = playerObjectChosen.name.toUpperCase() + ' DRINKS!';
+  showScreen('success');
+  window.messageBus.send( senderId, 'PICK_PLAYER_SUCCESS' );
+  setTimeout( function() {
+    changeTurn();
+  }, 2500 );
 };
 
 function flipAllUp() {
