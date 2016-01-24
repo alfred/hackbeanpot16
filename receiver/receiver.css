@@ -95,6 +95,8 @@ div#container {
   display: none;
   width: 500px;
   height: 500px;
+  margin-top: 75px;
+  margin-left: 100px;
 }
 
 .gameboard .cardRow {
