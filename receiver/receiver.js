@@ -4,6 +4,7 @@ var playerPickSuit;
 var secondPick;
 var secondPickValue;
 var secondPickSuit;
+var randomIndexChosen;
 
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
@@ -135,9 +136,9 @@ window.onload = function() {
 function pickRandom( array ) {
   var max = array.length;
   var min = 0;
-  var index = Math.floor(Math.random() * (max - min) + min);
+  randomIndexChosen = Math.floor(Math.random() * (max - min) + min);
 
-  return array[ index ];
+  return array[ randomIndexChosen ];
 }
 
 function chooseCard( cardNumber ) {
@@ -161,7 +162,7 @@ function higherOrLower( choice ) {
   secondPick = pickRandom( secondRow );
   secondPick.style.backgroundColor = "#FBF6E2";
 
-  flipSecondRow(secondRow.indexOf(secondPick) + 1, secondPick);
+  flipSecondRow(randomIndexChosen + 1, secondPick);
 
   secondCard = secondPick.getElementsByClassName('outline')[0];
   secondPickValue = parseInt(secondCard.getAttribute('data-card-value'));
@@ -180,7 +181,7 @@ function insideOrOutside( choice ) {
   var randomCard = pickRandom( thirdRow );
   randomCard.style.backgroundColor = "#FBF6E2";
 
-  flipThirdRow(thirdRow.indexOf(randomCard) + 1, randomCard);
+  flipThirdRow(randomIndexChosen + 1, randomCard);
 
   var thirdCard = randomCard.getElementsByClassName('outline')[0];
   var thirdPickValue = parseInt(thirdCard.getAttribute('data-card-value'));
