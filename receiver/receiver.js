@@ -132,13 +132,13 @@ window.onload = function() {
   console.log('Receiver Manager started');
 };
 
-function pickRandom( array ) {
-  var max = array.length;
-  var min = 0;
-  var index = Math.floor(Math.random() * (max - min) + min);
+// function pickRandom( array ) {
+//   var max = array.length;
+//   var min = 0;
+//   var index = Math.floor(Math.random() * (max - min) + min);
 
-  return array[ index ];
-}
+//   return array[ index ];
+// }
 
 function chooseCard( cardNumber ) {
   console.log('chooseCard');
@@ -147,7 +147,7 @@ function chooseCard( cardNumber ) {
   card.style.backgroundColor = "#FBF6E2";
   playerPick = card;
 
-  flipFirstRow(cardNumber, card);
+  flipFirstRow( cardNumber );
 
   playerPickCard = playerPick.getElementsByClassName('outline')[0];
   playerPickValue = parseInt(playerPickCard.getAttribute('data-card-value'));
@@ -156,12 +156,11 @@ function chooseCard( cardNumber ) {
 
 // choice is the string "higher" or "lower"
 function higherOrLower( choice ) {
-  console.log('higherOrLower');
   var secondRow = document.getElementsByClassName('cardContainer')[ 2 ].children;
-  secondPick = pickRandom( secondRow );
-  secondPick.style.backgroundColor = "#FBF6E2";
 
-  flipSecondRow(secondRow.indexOf(secondPick) + 1, secondPick);
+  var randomNum = Math.floor(Math.random() * 3) + 1;
+  secondPick = secondRow[randomNum - 1];
+  flipSecondRow(randomNum);
 
   secondCard = secondPick.getElementsByClassName('outline')[0];
   secondPickValue = parseInt(secondCard.getAttribute('data-card-value'));
@@ -177,10 +176,10 @@ function higherOrLower( choice ) {
 function insideOrOutside( choice ) {
   console.log('insideOrOutside');
   var thirdRow = document.getElementsByClassName('cardContainer')[ 1 ].children;
-  var randomCard = pickRandom( thirdRow );
-  randomCard.style.backgroundColor = "#FBF6E2";
 
-  flipThirdRow(thirdRow.indexOf(randomCard) + 1, randomCard);
+  var randomNum = Math.floor(Math.random() * 2) + 1
+  var randomCard = thirdRow[randomNum - 1];
+  flipThirdRow(randomNum);
 
   var thirdCard = randomCard.getElementsByClassName('outline')[0];
   var thirdPickValue = parseInt(thirdCard.getAttribute('data-card-value'));
@@ -200,9 +199,8 @@ function smokeOrFire( choice ) {
   console.log('smokeOrFire');
   var fourthRow = document.getElementsByClassName('cardContainer')[ 0 ].children;
   var finalCard = fourthRow[ 0 ];
-  finalCard.style.backgroundColor = "#FBF6E2";
 
-  flipFourthRow(1, finalCard);
+  flipFourthRow(1);
 
   var fourthCard = finalCard.getElementsByClassName('outline')[0];
   var fourthPickValue = parseInt(fourthCard.getAttribute('data-card-value'));
@@ -234,23 +232,23 @@ function flipAllDown() {
   }
 }
 
-function flipFirstRow( cardNum, cardChosen ) {
-  flipRow(3, cardNum, cardChosen);
+function flipFirstRow( cardNum ) {
+  flipRow(3, cardNum );
 };
 
-function flipSecondRow( cardNum, cardChosen ) {
-  flipRow(2, cardNum, cardChosen);
+function flipSecondRow( cardNum ) {
+  flipRow(2, cardNum );
 };
 
-function flipThirdRow( cardNum, cardChosen ) {
-  flipRow(1, cardNum, cardChosen);
+function flipThirdRow( cardNum ) {
+  flipRow(1, cardNum );
 };
 
-function flipFourthRow( cardNum, cardChosen ) {
-  flipRow(0, cardNum, cardChosen);
+function flipFourthRow( cardNum ) {
+  flipRow(0, cardNum );
 };
 
-function flipRow( rowNum, cardNum, cardChosen ) {
+function flipRow( rowNum, cardNum ) {
   var row = document.getElementsByClassName('cardRow')[rowNum];
   var card = row.getElementsByClassName('cardWrapper')[cardNum - 1];
   flipCard(card);
