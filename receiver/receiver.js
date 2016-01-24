@@ -141,10 +141,7 @@ window.onload = function() {
 };
 
 function changeTurn() {
-  console.log(gameStateObject.playersList);
-  console.log(gameStateObject.turn);
   gameStateObject.turn = (gameStateObject.turn + 1) % gameStateObject.playersList.length;
-  console.log(gameStateObject.turn);
   flipAllDown();
   showScreen('gameboard');
   placeCards( gameStateObject );
@@ -152,7 +149,6 @@ function changeTurn() {
 }
 
 function chooseCard( cardNumber ) {
-  console.log('chooseCard');
   var firstRow = document.getElementsByClassName('cardContainer')[ 3 ].children;
   var card = firstRow[ cardNumber - 1 ];
   playerPick = card;
@@ -184,7 +180,6 @@ function higherOrLower( choice ) {
 
 // choice is the string "inside" or "outside"
 function insideOrOutside( choice ) {
-  console.log('insideOrOutside');
   var thirdRow = document.getElementsByClassName('cardContainer')[ 1 ].children;
 
   var randomNum = Math.floor(Math.random() * 2) + 1
@@ -206,7 +201,6 @@ function insideOrOutside( choice ) {
 
 // choice is the string "smoke" or "fire"
 function smokeOrFire( choice ) {
-  console.log('smokeOrFire');
   var fourthRow = document.getElementsByClassName('cardContainer')[ 0 ].children;
   var finalCard = fourthRow[ 0 ];
 
