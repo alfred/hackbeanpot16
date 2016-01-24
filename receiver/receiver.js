@@ -143,20 +143,42 @@ function pickPlayer( choice ) {
 };
 
 function flipFirstRow( cardNum, cardChosen ) {
-
+  flipRow(1, cardNum, cardChosen);
 };
 
 function flipSecondRow( cardNum, cardChosen ) {
-
+  flipRow(2, cardNum, cardChosen);
 };
 
 function flipThirdRow( cardNum, cardChosen ) {
-
+  flipRow(3, cardNum, cardChosen);
 };
 
 function flipFourthRow( cardNum, cardChosen ) {
-
+  flipRow(4, cardNum, cardChosen);
 };
+
+function flipRow( rowNum, cardNum, cardChosen ) {
+  var row = document.getElementsByClassName('cardRow')[rowNum - 1];
+  var card = row.getElementsByClassName('cardWrapper')[cardNum - 1];
+  flipCard(card);
+}
+
+function flipCard(card) {
+  if (isVisible(card.children[0])) { 
+    // card is face up so flip it face down
+    card.children[0].style.display = 'none';
+    card.children[1].style.display = 'block';
+  } else {
+    // card is face down so flip it face up
+    card.children[0].style.display = 'block';
+    card.children[1].style.display = 'none';
+  }
+}
+
+function isVisible(elem) {
+  return elem.offsetWidth > 0 || elem.offsetHeight > 0;
+}
 
 // utility function to display the text message in the input field
 function displayText( text ) {
