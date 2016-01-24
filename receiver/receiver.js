@@ -5,10 +5,11 @@ var secondPick;
 var secondPickValue;
 var secondPickSuit;
 var randomIndexChosen;
+var gameStateObject;
 
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
-  var gameStateObject = setupGame();
+  gameStateObject = setupGame();
   console.log(gameStateObject);
   window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   console.log('Starting Receiver Manager');
