@@ -2,38 +2,74 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView android:layout_marginTop="100dp"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:textSize="30dp"
+        android:text="Pick a card to flip:"
+        android:gravity="center"
+        android:id="@+id/TextView04"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="10.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingRight="10.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView04">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Card 1"
+            android:layout_marginLeft="3dp"
+            android:id="@+id/card1"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:layout_weight=".25"
+            android:shadowColor="@android:color/holo_blue_light"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Card 2"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/card1"
+            android:id="@+id/card2"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:layout_weight=".25"
+            android:shadowColor="@android:color/holo_blue_light"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:height="80dp"
-        android:layout_centerVertical="true"
-        android:text="Card 1"
-        android:id="@+id/card1" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="Card 2"
-        android:height="80dp"
-        android:layout_toRightOf="@+id/card1"
-        android:id="@+id/card2" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Card 3"
+            android:layout_weight=".25"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/card2"
+            android:id="@+id/card3"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:height="80dp"
-        android:text="Card 3"
-        android:layout_toRightOf="@+id/card2"
-        android:id="@+id/card3" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:height="80dp"
-        android:layout_toRightOf="@+id/card3"
-        android:text="Card 4"
-        android:id="@+id/card4" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/card3"
+            android:layout_marginLeft="3dp"
+            android:text="Card 4"
+            android:id="@+id/card4"
+            android:layout_weight=".25"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light"/>
+    </LinearLayout>
 </RelativeLayout>

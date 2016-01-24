@@ -3,22 +3,37 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_marginTop="100dp"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:text="Will the next card be higher or lower than the previous two?"
+        android:textSize="20dp"
+        android:gravity="center_horizontal" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:height="80dp"
         android:text="Higher"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:shadowColor="@android:color/holo_blue_light"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_above="@+id/lower"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="180dp"
         android:id="@+id/higher" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:height="80dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:shadowColor="@android:color/holo_blue_light"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/higher"
         android:text="Lower"
         android:id="@+id/lower" />
 </RelativeLayout>

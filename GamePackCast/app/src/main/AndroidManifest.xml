@@ -5,24 +5,35 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="21" />
     <application android:name="MyApplication"  android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher" android:theme="@style/Theme.AppCompat">
+        android:icon="@drawable/ic_launcher" android:theme="@style/Theme.AppCompat"
+        android:screenOrientation="portrait">
         <activity
             android:name="MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="EnterName" />
-        <activity android:name="NumPlayers" />
-        <activity android:name="Waiting" />
-        <activity android:name="StartGame"/>
-        <activity android:name="PickCard" />
-        <activity android:name="HighLow" />
-        <activity android:name="InsideOutside" />
-        <activity android:name="SmokeFire" />
-        <activity android:name="PickPlayer" />
+        <activity android:name="EnterName"
+            android:screenOrientation="portrait" />
+        <activity android:name="NumPlayers"
+            android:screenOrientation="portrait" />
+        <activity android:name="Waiting"
+            android:screenOrientation="portrait" />
+        <activity android:name="StartGame"
+            android:screenOrientation="portrait" />
+        <activity android:name="PickCard"
+            android:screenOrientation="portrait"/>
+        <activity android:name="HighLow"
+            android:screenOrientation="portrait"/>
+        <activity android:name="InsideOutside"
+            android:screenOrientation="portrait" />
+        <activity android:name="SmokeFire"
+            android:screenOrientation="portrait" />
+        <activity android:name="PickPlayer"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

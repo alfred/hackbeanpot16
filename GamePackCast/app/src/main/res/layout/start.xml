@@ -15,6 +15,12 @@
         android:layout_height="wrap_content"
         android:text="Start Game"
         android:id="@+id/start"
+        android:height="60dp"
+        android:width="320dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:shadowColor="@android:color/holo_blue_light"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"/>
