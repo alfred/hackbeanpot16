@@ -125,4 +125,5 @@ div#container {
 .gameboard .rounded{ border-radius:10px; }
 .gameboard .cardRed { color: #FF0000 }
 .gameboard .cardBlack { color: #000000 }
+.gameboard .cardSlot { background-color: #FFF }
 
