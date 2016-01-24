@@ -102,7 +102,6 @@ window.onload = function() {
           window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' ); // ??????
         } else {
           sendLoseMessage( event.senderId );
-          changeTurn();
         }
       break;
       case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
@@ -110,7 +109,6 @@ window.onload = function() {
           window.messageBus.send( event.senderId, 'INSIDE_OUTSIDE_SUCCESS' ); // ??????
         } else {
           sendLoseMessage( event.senderId );
-          changeTurn();
         }
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
@@ -119,7 +117,6 @@ window.onload = function() {
 
         } else {
           sendLoseMessage( event.senderId );
-          changeTurn();
         }
       break;
       case 'PICK_PLAYER': // pick a player to drink
@@ -336,5 +333,6 @@ function sendLoseMessage( senderId ) {
   showScreen('failure');
   setTimeout( function() {
     window.messageBus.send( senderId, 'FAILURE' );
+    changeTurn();
   }, 2500 );
 }
