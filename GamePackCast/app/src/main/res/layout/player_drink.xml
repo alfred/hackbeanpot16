@@ -27,6 +27,7 @@
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:layout_weight=".25"
             android:shadowColor="@android:color/holo_blue_light"/>
 
         <Button
@@ -38,6 +39,7 @@
             android:layout_marginLeft="3dp"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:layout_weight=".25"
             android:shadowColor="@android:color/holo_blue_light"/>
 
         <Button
@@ -49,6 +51,7 @@
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:layout_weight=".25"
             android:shadowColor="@android:color/holo_blue_light"/>
 
         <Button
@@ -56,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:text="Player 4"
+            android:layout_weight=".25"
             android:id="@+id/player4"
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"

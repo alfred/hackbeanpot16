@@ -28,6 +28,7 @@
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:layout_weight=".25"
             android:shadowColor="@android:color/holo_blue_light"/>
         <Button
             android:layout_width="wrap_content"
@@ -40,6 +41,7 @@
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:layout_weight=".25"
             android:shadowColor="@android:color/holo_blue_light"/>
 
         <Button
@@ -47,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="Card 3"
+            android:layout_weight=".25"
             android:layout_marginLeft="3dp"
             android:layout_toRightOf="@+id/card2"
             android:id="@+id/card3"
@@ -63,6 +66,7 @@
             android:layout_marginLeft="3dp"
             android:text="Card 4"
             android:id="@+id/card4"
+            android:layout_weight=".25"
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
             android:layout_gravity="center"

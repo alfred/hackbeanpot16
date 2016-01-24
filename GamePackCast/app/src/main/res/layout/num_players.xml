@@ -19,14 +19,15 @@
         android:layout_below="@+id/TextView02">
 
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:id="@+id/oneplayer"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center"
-        android:shadowColor="@android:color/holo_blue_light"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:id="@+id/oneplayer"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_weight=".25"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -37,6 +38,7 @@
             android:shadowColor="@android:color/holo_blue_light"
             android:text="2"
             android:layout_marginLeft="3dp"
+            android:layout_weight=".25"
             android:id="@+id/twoplayers" />
 
         <Button
@@ -48,6 +50,7 @@
             android:shadowColor="@android:color/holo_blue_light"
             android:text="3"
             android:layout_marginLeft="3dp"
+            android:layout_weight=".25"
             android:id="@+id/threeplayers" />
 
         <Button
@@ -59,6 +62,7 @@
             android:background="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:layout_weight=".25"
             android:shadowColor="@android:color/holo_blue_light" />
         </LinearLayout>
 </LinearLayout>
