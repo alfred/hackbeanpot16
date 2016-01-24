@@ -97,20 +97,18 @@ window.onload = function() {
         chooseCard( messageData[ 1 ] );
         window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
       break;
-      case 'HIGHER_OR_LOWER': // higher or lower from row 
+      case 'HIGHER_OR_LOWER': // higher or lower from row
         if (higherOrLower( messageData[ 1 ] )) {
           window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' ); // ??????
         } else {
-          window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
-          changeTurn();
+          sendLoseMessage( event.senderId );
         }
       break;
       case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
         if ( insideOrOutside( messageData[ 1 ] ) ) {
           window.messageBus.send( event.senderId, 'INSIDE_OUTSIDE_SUCCESS' ); // ??????
         } else {
-          window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
-          changeTurn();
+          sendLoseMessage( event.senderId );
         }
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
@@ -118,8 +116,7 @@ window.onload = function() {
           window.messageBus.send( event.senderId, 'SMOKE_OR_FIRE_SUCCESS' ); // ??????
 
         } else {
-          window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
-          changeTurn();
+          sendLoseMessage( event.senderId );
         }
       break;
       case 'PICK_PLAYER': // pick a player to drink
@@ -324,4 +321,12 @@ function sendStartGame( senderId ) {
 
 function sendNameAck( senderId ) {
   window.messageBus.send( senderId, 'NAME_RECEIVED' );
+}
+
+function sendLoseMessage( senderId ) {
+  showScreen('failure');
+  setTimeout( function() {
+    window.messageBus.send( senderId, 'FAILURE' );
+    changeTurn();
+  }, 2500 );
 }
