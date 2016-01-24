@@ -10,7 +10,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Connect to chromecast to start!"
         android:id="@+id/textView2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
         android:layout_weight="0.04"
         android:textSize="40dp" />
 </RelativeLayout>

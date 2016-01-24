@@ -9,5 +9,6 @@
         android:text="Waiting For Other Players..."
         android:id="@+id/textView3"
         android:textSize="40dp"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"/>
 </RelativeLayout>

@@ -2,23 +2,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <Button
-        android:layout_width="wrap_content"
+<TextView
+    android:layout_marginTop="100dp"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:text="Will the next card be inside or outside the previous two?"
+    android:textSize="20dp"
+    android:gravity="center_horizontal"
+    android:id="@+id/TextView01"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="10.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingRight="10.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:height="80dp"
-        android:text="Inside"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_above="@+id/outside"
-        android:id="@+id/inside" />
+        android:layout_below="@+id/TextView01">
+        <Button
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:height="80dp"
+            android:text="Inside"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/outside"
+            android:id="@+id/inside"
+            android:layout_weight="1.0"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:height="80dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Outside"
-        android:id="@+id/outside" />
+        <Button
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:height="80dp"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10px"
+            android:shadowColor="@android:color/holo_blue_light"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Outside"
+            android:id="@+id/outside" />
+    </LinearLayout>
 </RelativeLayout>
