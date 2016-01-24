@@ -201,7 +201,7 @@ function smokeOrFire( choice ) {
   var isSmoke = (fourthPickSuit == '&clubs;' || fourthPickSuit == '&spades;');
   var isFire = (fourthPickSuit == '&hearts;' || fourthPickSuit == '&diams;');
 
-  return ( ( choice == 'smoke' && isSmoke ) || ( choice == 'fire'  && isFire ) );
+  return ( ( choice == 'SMOKE' && isSmoke ) || ( choice == 'FIRE'  && isFire ) );
 };
 
 function pickPlayer( choice ) {
