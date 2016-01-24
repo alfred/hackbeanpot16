@@ -77,6 +77,7 @@ window.onload = function() {
           'playerNumber' : gameStateObject['numberConnected']
         };
         displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
+        gameStateObject.playersList.push(event.senderId);
 
         if ( event.senderId === gameStateObject['hostSenderId'] ) {
           sendStartGame( event.senderId );
@@ -100,6 +101,7 @@ window.onload = function() {
           window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' ); // ??????
         } else {
           window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
+          changeTurn();
         }
       break;
       case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
@@ -107,6 +109,7 @@ window.onload = function() {
           window.messageBus.send( event.senderId, 'INSIDE_OUTSIDE_SUCCESS' ); // ??????
         } else {
           window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
+          changeTurn();
         }
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
@@ -114,11 +117,13 @@ window.onload = function() {
           window.messageBus.send( event.senderId, 'SMOKE_OR_FIRE_SUCCESS' ); // ??????
         } else {
           window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
+          changeTurn();
         }
       break;
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
         window.messageBus.send( event.senderId, 'PICK_PLAYER_SUCCESS' );
+        changeTurn();
       break;
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
@@ -132,6 +137,13 @@ window.onload = function() {
   window.castReceiverManager.start( { statusText : "Application is starting" } );
   console.log('Receiver Manager started');
 };
+
+function changeTurn() {
+  gameStateObject.turn = (gameStateObject.turn + 1) % gameStateObject.playersList.length;
+  showScreen('gameboard');
+  placeCards( gameStateObject );
+  window.messageBus.send( gameStateObject.playersList[gameStateObject.turn], 'GAME_HAS_STARTED' );
+}
 
 function chooseCard( cardNumber ) {
   console.log('chooseCard');
@@ -292,7 +304,9 @@ function setupGame() {
     hostSenderId: '',
     numberOfPlayers: '',
     numberConnected: '',
-    deck: new Deck()
+    deck: new Deck(),
+    playersList: [],
+    turn: 0
   };
 }
 
