@@ -167,6 +167,7 @@ div#container {
   margin-bottom: 0;
 }
 
+/** FAILURE */
 .failure {
   display: none;
   height: 100vh;
@@ -178,4 +179,29 @@ div#container {
   color: #FFF;
   font-size: 100px;
   padding-top: 100px;
+}
+
+/** SUCCESS */
+.success {
+  padding-top: 200px;
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  background-color: #689D13;
+  position: relative;
+  right: 15px;
+  color: #EFEFEF;
+}
+
+.success div {
+  width: 1270px;
+  height: 100%;
+  text-align: center;
+}
+
+.success div h2, .success div h1 {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  font-size: 100px;
 }
