@@ -88,6 +88,10 @@ window.onload = function() {
         gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
         // Move to the player list screen
         showScreen('show-connected');
+        // unhide all the player icons at the bottom
+        for (i = 0; i < gameStateObject['numberOfPlayers']; i++) {
+          document.getElementsByClassName[i].style.hidden = false;
+        }
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
       break;
@@ -312,7 +316,19 @@ function displayPlayerName( playerNumber, playerName ) {
   // -1 cause player numbers are 1-4 and arrays are indexed by 0
   var playerNameElement = playerNameElements[ playerNumber - 1 ];
   playerNameElement.style.visibility = 'visible';
-  playerNameElement.innerHTML = '<p>' + playerName  + '</p>';
+  playerNameElement.children[0].innerHTML = playerName;
+  if (playerNumber == 1) {
+    playerNameElement.children[1].src = "../assets/ProfileImgBlue.png";
+  }
+  if (playerNumber == 2) {
+    playerNameElement.children[1].src = "../assets/ProfileImgGreen.png";
+  }
+  if (playerNumber == 3) {
+    playerNameElement.children[1].src = "../assets/ProfileImgRed.png";
+  }
+  if (playerNumber == 4) {
+    playerNameElement.children[1].src = "../assets/ProfileImgOrange.png";
+  }
 }
 
 function sendStartGame( senderId ) {

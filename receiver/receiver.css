@@ -24,7 +24,7 @@ div#container {
   border-left: 15px solid white;
   border-right: 15px solid white;
   background-color: white;
-
+  height: 700px;
 }
 
 .row {
@@ -81,13 +81,26 @@ div#container {
   margin-top: 75px;
   text-align: center;
   display: none;
+  height: 80%;
 }
 
 .show-connected .player-name {
   visibility: hidden;
   padding: 5px 15px;
-  width: 100px;
-  margin: auto;
+  width: 300px;
+  height:100%;
+  font-weight:bold;
+}
+
+.player-name-container { 
+  margin-left: 100px;
+  margin-right: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.waiting {
+  height: 70%;
 }
 
 /** ================================== GAME BOARD styles ==================== */
