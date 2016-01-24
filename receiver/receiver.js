@@ -222,8 +222,6 @@ function pickPlayer( playerToDrinkArrayIndex, senderId ) {
   }, 2500 );
 };
 
-function showWinning
-
 function flipAllUp() {
   var cards = document.getElementsByClassName('cardWrapper');
   for(var i=0; i<cards.length; i++) {
