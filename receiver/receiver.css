@@ -148,6 +148,10 @@ div#container {
   margin-bottom: 50px;
 }
 
+.gameboard .rules > .currentRow {
+  color: #FF0000;
+}
+
 /* Cards */
 .gameboard .outline{ width: 100px; height: 100%; border: 0px solid black; text-align: center; }
 .gameboard .top {
