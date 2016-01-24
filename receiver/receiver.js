@@ -96,13 +96,7 @@ window.onload = function() {
         window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
       break;
       case 'HIGHER_OR_LOWER': // higher or lower from row 
-        var success = higherOrLower( messageData[ 1 ] );
-        console.log("Player Selection: ", messageData[1]);
-        console.log("Picked Card: ", playerPickValue, playerPickSuit);
-        console.log("Second Card: ", secondPickValue, secondPickSuit);
-        console.log("Success?: ", success);
-
-        if (success) {
+        if (higherOrLower( messageData[ 1 ] )) {
           window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' ); // ??????
         } else {
           window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
@@ -189,7 +183,7 @@ function insideOrOutside( choice ) {
   var isOutside = thirdPickValue < Math.min(secondPickValue, playerPickValue) ||
                   thirdPickValue > Math.max(secondPickValue, playerPickValue);
 
-  return ( (choice == 'inside' &&  isInside ) || (choice == 'outside' &&  isOutside ) );
+  return ( (choice == 'INSIDE' &&  isInside ) || (choice == 'OUTSIDE' &&  isOutside ) );
 };
 
 // choice is the string "smoke" or "fire"
