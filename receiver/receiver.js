@@ -139,7 +139,10 @@ window.onload = function() {
 };
 
 function changeTurn() {
+  console.log(gameStateObject.playersList);
+  console.log(gameStateObject.turn);
   gameStateObject.turn = (gameStateObject.turn + 1) % gameStateObject.playersList.length;
+  console.log(gameStateObject.turn);
   showScreen('gameboard');
   placeCards( gameStateObject );
   window.messageBus.send( gameStateObject.playersList[gameStateObject.turn], 'GAME_HAS_STARTED' );
