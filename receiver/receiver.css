@@ -90,6 +90,8 @@ div#container {
   margin: auto;
 }
 
+.
+
 /** ================================== GAME BOARD styles ==================== */
 .gameboard {
   display: none;
@@ -135,7 +137,7 @@ div#container {
   display: block;
   overflow: hidden;
 }
- 
+
 /* Cards */
 .gameboard .outline{ width: 100px; height: 100%; border: 0px solid black; text-align: center; }
 .gameboard .top{ text-align: left; margin-left: 5px; }
@@ -143,8 +145,30 @@ div#container {
 .gameboard .rounded{ border-radius:10px; }
 .gameboard .cardRed { color: #FF0000 }
 .gameboard .cardBlack { color: #000000 }
-
 .gameboard .outline.rounded h1 {
   margin-bottom: 0;
+}
+/** Failure screen */
+.failure {
+  padding-top: 200px;
+  height: 720px;
+  width: 1270px;
+  display: none;
+  background-color: #F00;
+  color: #FFF;
+  position: relative;
+  right: 20px;
+}
+
+.failure div {
+  width: 1270px;
+  height: 100%;
+  text-align: center;
+}
+
+.failure div h1 {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
 }
 
