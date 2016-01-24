@@ -1,16 +1,10 @@
 'use strict';
 
 /** Places the cards on the board */
-function placeCards( gameStateObject ) {
-  var rows = document.getElementsByClassName('gameboard')[0].children;
-  for(var i=0; i < rows.length; i++) {
-    var slots = rows[i].children;
-    for(var j=0; j < slots.length; j++) {
-      var cards = slots[j].children;
-      for(var k=0; k < cards.length; k++) {
-        cards[k].appendChild( createCard( gameStateObject.deck.pickCard() ) );
-      }
-    }
+function placeCards ( gameStateObject ) {
+  var slots = document.getElementsByClassName('cardSlot')
+  for(var i=0; i < slots.length; i++) {
+    slots[i].appendChild( createCard( gameStateObject.deck.pickCard() ) );
   }
 }
 
