@@ -17,7 +17,9 @@ function createCard( cardObject ) {
 
   var cardDiv = document.createElement('div')
   cardDiv.setAttribute('class', 'outline rounded ' + color);
-  cardDiv.innerHTML = '<div class="top"><span>'+value+'</span><span>'+suit+'</span></div><h1>'+suit+'</h1><div class="bottom"><span>'+suit+'</span><span>'+value+'</span></div>';
+  cardDiv.setAttribute('data-card-value', cardObject.value);
+  cardDiv.setAttribute('data-card-suit', cardObject.suit);
+  cardDiv.innerHTML = '<div class="top"><span>'+getValue(value)+'</span><span>'+suit+'</span></div><h1>'+suit+'</h1><div class="bottom"><span>'+suit+'</span><span>'+getValue(value)+'</span></div>';
 
   return cardDiv;
 }

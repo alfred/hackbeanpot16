@@ -1,5 +1,9 @@
 var playerPick;
+var playerPickValue;
+var playerPickSuit;
 var secondPick;
+var secondPickValue;
+var secondPickSuit;
 
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
@@ -134,6 +138,10 @@ function chooseCard( cardNumber ) {
   var card = firstRow[ cardNumber - 1 ];
   card.style.backgroundColor = "#FBF6E2";
   playerPick = card;
+
+  playerPickCard = playerPick.getElementsByClassName('outline')[0];
+  playerPickValue = playerPickCard.getAttribute('data-card-value');
+  playerPickSuit = playerPickCard.getAttribute('data-card-suit');
 };
 
 // choice is the string "higher" or "lower"
@@ -143,8 +151,12 @@ function higherOrLower( choice ) {
   secondPick = pickRandom( secondRow );
   secondPick.style.backgroundColor = "#FBF6E2";
 
-  var isHigher = playerPick.value > secondPick.value;
-  var isLower = playerPick.value < secondPick.value;
+  secondCard = secondPick.getElementsByClassName('outline')[0];
+  secondPickValue = secondCard.getAttribute('data-card-value');
+  secondPickSuit = secondCard.getAttribute('data-card-suit');
+
+  var isHigher = playerPickValue < secondPickValue;
+  var isLower = playerPickValue > secondPickValue;
 
   console.log(isHigher);
   console.log(isLower);
@@ -164,11 +176,15 @@ function insideOrOutside( choice ) {
   var randomCard = pickRandom( thirdRow );
   randomCard.style.backgroundColor = "#FBF6E2";
 
-  var isInside = playerPick.value > Math.min(secondPick.value, randomCard.value) && 
-                 playerPick.value < Math.max(secondPick.value, randomCard.value);
+  var thirdCard = randomCard.getElementsByClassName('outline')[0];
+  var thirdPickValue = thirdCard.getAttribute('data-card-value');
+  var thirdPickSuit = thirdCard.getAttribute('data-card-suit');
 
-  var isOutside = playerPick.value < Math.min(secondPick.value, randomCard.value) ||
-                  playerPick.value > Math.max(secondPick.value, randomCard.value);
+  var isInside = thirdPickValue > Math.min(secondPickValue, playerPickValue) && 
+                 thirdPickValue < Math.max(secondPickValue, playerPickValue);
+
+  var isOutside = thirdPickValue < Math.min(secondPick.value, playerPickValue) ||
+                  thirdPickValue > Math.max(secondPick.value, playerPickValue);
 
   console.log(isInside);
   console.log(isOutside);
@@ -188,8 +204,12 @@ function smokeOrFire( choice ) {
   var finalCard = fourthRow[ 0 ];
   finalCard.style.backgroundColor = "#FBF6E2";
 
-  var isSmoke = (finalCard.suit == '&clubs' || finalCard.suit == '&spades');
-  var isFire = (finalCard.suit == '&hearts' || finalCard.suit == '&diams');
+  var fourthCard = finalCard.getElementsByClassName('outline')[0];
+  var fourthPickValue = fourthCard.getAttribute('data-card-value');
+  var fourthPickSuit = fourthCard.getAttribute('data-card-suit');
+
+  var isSmoke = (fourthPickSuit == '&clubs;' || fourthPickSuit == '&spades;');
+  var isFire = (fourthPickSuit == '&hearts;' || fourthPickSuit == '&diams;');
 
   console.log(isSmoke);
   console.log(isFire);
@@ -223,7 +243,7 @@ function flipAllDown() {
 }
 
 function flipFirstRow( cardNum, cardChosen ) {
-  flipRow(1, cardNum, cardChosen);
+  flipRow(3, cardNum, cardChosen);
 };
 
 function flipSecondRow( cardNum, cardChosen ) {
@@ -231,15 +251,15 @@ function flipSecondRow( cardNum, cardChosen ) {
 };
 
 function flipThirdRow( cardNum, cardChosen ) {
-  flipRow(3, cardNum, cardChosen);
+  flipRow(1, cardNum, cardChosen);
 };
 
 function flipFourthRow( cardNum, cardChosen ) {
-  flipRow(4, cardNum, cardChosen);
+  flipRow(0, cardNum, cardChosen);
 };
 
 function flipRow( rowNum, cardNum, cardChosen ) {
-  var row = document.getElementsByClassName('cardRow')[rowNum - 1];
+  var row = document.getElementsByClassName('cardRow')[rowNum];
   var card = row.getElementsByClassName('cardWrapper')[cardNum - 1];
   flipCard(card);
 }
