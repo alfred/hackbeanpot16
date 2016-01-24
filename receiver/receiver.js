@@ -97,7 +97,7 @@ window.onload = function() {
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         smokeOrFire( messageData[ 1 ] );
-        window.messageBus.send( event.senderId, 'SMOKE_FIRE_FAILURE' );
+        window.messageBus.send( event.senderId, 'FAILURE' );
       break;
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
