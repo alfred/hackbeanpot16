@@ -4,6 +4,7 @@
 function placeCards ( gameStateObject ) {
   var slots = document.getElementsByClassName('cardSlot')
   for(var i=0; i < slots.length; i++) {
+    slots[i].innerHTML = "";
     slots[i].appendChild( createCard( gameStateObject.deck.pickCard() ) );
   }
 }
@@ -13,7 +14,7 @@ function createCard( cardObject ) {
   var suit = cardObject.suit; // card.suit
 
   // This stuff builds the card element
-  var color = (suit == '&hearts;' || suit == '&diams') ? 'cardRed' : 'cardBlack';
+  var color = (suit == '&hearts;' || suit == '&diams;') ? 'cardRed' : 'cardBlack';
 
   var cardDiv = document.createElement('div')
   cardDiv.setAttribute('class', 'outline rounded ' + color);

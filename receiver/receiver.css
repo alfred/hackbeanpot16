@@ -137,9 +137,9 @@ div#container {
 }
  
 /* Cards */
-.gameboard .outline{ width: 100px; border: 0px solid black; text-align: center; }
-.gameboard .top{ text-align: left; }
-.gameboard .bottom{ text-align: right; }
+.gameboard .outline{ width: 100px; height: 100%; border: 0px solid black; text-align: center; }
+.gameboard .top{ text-align: left; margin-left: 5px; }
+.gameboard .bottom{ text-align: right; margin-right: 5px; }
 .gameboard .rounded{ border-radius:10px; }
 .gameboard .cardRed { color: #FF0000 }
 .gameboard .cardBlack { color: #000000 }
