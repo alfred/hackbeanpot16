@@ -97,15 +97,16 @@ window.onload = function() {
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         smokeOrFire( messageData[ 1 ] );
-        window.messageBus.send( event.senderId, 'SMOKE_FIRE_SUCCESS' );
+        window.messageBus.send( event.senderId, 'FAILURE' );
       break;
       case 'PICK_PLAYER': // pick a player to drink
         pickPlayer( messageData[ 1 ] );
+        window.messageBus.send( event.senderId, 'PICK_PLAYER_SUCCESS' );
       break;
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
         showScreen('gameboard');
-        placeCards( gameStateObject );
+        // placeCards( gameStateObject );
       break;
     }
   }

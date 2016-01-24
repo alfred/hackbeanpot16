@@ -8,7 +8,7 @@ function placeCards( gameStateObject ) {
     for(var j=0; j < slots.length; j++) {
       var cards = slots[j].children;
       for(var k=0; k < cards.length; k++) {
-        cards[k].appendChild( gameStateObject.deck.pickCard() );
+        cards[k].appendChild( createCard( gameStateObject.deck.pickCard() ) );
       }
     }
   }

@@ -92,6 +92,7 @@ div#container {
 
 /** ================================== GAME BOARD styles ==================== */
 .gameboard {
+  display: none;
   width: 500px;
   height: 500px;
 }
