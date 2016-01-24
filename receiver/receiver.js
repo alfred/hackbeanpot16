@@ -99,6 +99,7 @@ window.onload = function() {
         var success = higherOrLower( messageData[ 1 ] );
         console.log("Player Selection: ", messageData[1]);
         console.log("Picked Card: ", playerPickValue, playerPickSuit);
+        console.log("Second Card: ", secondPickValue, secondPickSuit);
         console.log("Success?: ", success);
 
         if (success) {
@@ -166,7 +167,7 @@ function higherOrLower( choice ) {
   var isHigher = playerPickValue < secondPickValue;
   var isLower = playerPickValue > secondPickValue;
 
-   return (choice == 'higher' && isHigher ) || (choice == 'lower' &&  isLower );
+  return (choice == 'higher' && isHigher ) || (choice == 'lower' &&  isLower );
 };
 
 // choice is the string "inside" or "outside"
