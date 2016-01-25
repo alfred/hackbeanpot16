@@ -5,10 +5,11 @@ var secondPick;
 var secondPickValue;
 var secondPickSuit;
 var randomIndexChosen;
+var gameStateObject;
 
 window.onload = function() {
   cast.receiver.logger.setLevelValue( 0 );
-  var gameStateObject = setupGame();
+  gameStateObject = setupGame();
   console.log(gameStateObject);
   window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   console.log('Starting Receiver Manager');
@@ -77,6 +78,7 @@ window.onload = function() {
           'playerNumber' : gameStateObject['numberConnected']
         };
         displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
+        gameStateObject.playersList.push(event.senderId);
 
         if ( event.senderId === gameStateObject['hostSenderId'] ) {
           sendStartGame( event.senderId );
@@ -99,30 +101,29 @@ window.onload = function() {
         chooseCard( messageData[ 1 ] );
         window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
       break;
-      case 'HIGHER_OR_LOWER': // higher or lower from row 2
-        if ( higherOrLower( messageData[ 1 ] ) ) {
+      case 'HIGHER_OR_LOWER': // higher or lower from row
+        if (higherOrLower( messageData[ 1 ] )) {
           window.messageBus.send( event.senderId, 'HIGH_LOW_SUCCESS' ); // ??????
         } else {
-          window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
+          sendLoseMessage( event.senderId );
         }
       break;
       case 'INSIDE_OR_OUTSIDE': // inside or outside from row 3
         if ( insideOrOutside( messageData[ 1 ] ) ) {
           window.messageBus.send( event.senderId, 'INSIDE_OUTSIDE_SUCCESS' ); // ??????
         } else {
-          window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
+          sendLoseMessage( event.senderId );
         }
       break;
       case 'SMOKE_OR_FIRE': // smoke or fire from row 4
         if ( smokeOrFire( messageData[ 1 ] ) ) {
-          window.messageBus.send( event.senderId, 'SMOKE_OR_FIRE_SUCCESS' ); // ??????
+          window.messageBus.send( event.senderId, 'SMOKE_FIRE_SUCCESS' ); // ??????
         } else {
-          window.messageBus.send( event.senderId, 'FAILURE' ); // ??????
+          sendLoseMessage( event.senderId );
         }
       break;
       case 'PICK_PLAYER': // pick a player to drink
-        pickPlayer( messageData[ 1 ] );
-        window.messageBus.send( event.senderId, 'PICK_PLAYER_SUCCESS' );
+        pickPlayer( messageData[ 1 ], event.senderId );
       break;
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
@@ -137,22 +138,20 @@ window.onload = function() {
   console.log('Receiver Manager started');
 };
 
-function pickRandom( array ) {
-  var max = array.length;
-  var min = 0;
-  randomIndexChosen = Math.floor(Math.random() * (max - min) + min);
-
-  return array[ randomIndexChosen ];
+function changeTurn() {
+  gameStateObject.turn = (gameStateObject.turn + 1) % gameStateObject.playersList.length;
+  flipAllDown();
+  showScreen('gameboard');
+  placeCards( gameStateObject );
+  window.messageBus.send( gameStateObject.playersList[gameStateObject.turn], 'GAME_HAS_STARTED' );
 }
 
 function chooseCard( cardNumber ) {
-  console.log('chooseCard');
   var firstRow = document.getElementsByClassName('cardContainer')[ 3 ].children;
   var card = firstRow[ cardNumber - 1 ];
-  card.style.backgroundColor = "#FBF6E2";
   playerPick = card;
 
-  flipFirstRow(cardNumber, card);
+  flipFirstRow( cardNumber );
 
   playerPickCard = playerPick.getElementsByClassName('outline')[0];
   playerPickValue = parseInt(playerPickCard.getAttribute('data-card-value'));
@@ -161,12 +160,11 @@ function chooseCard( cardNumber ) {
 
 // choice is the string "higher" or "lower"
 function higherOrLower( choice ) {
-  console.log('higherOrLower');
   var secondRow = document.getElementsByClassName('cardContainer')[ 2 ].children;
-  secondPick = pickRandom( secondRow );
-  secondPick.style.backgroundColor = "#FBF6E2";
 
-  flipSecondRow(randomIndexChosen + 1, secondPick);
+  var randomNum = Math.floor(Math.random() * 3) + 1;
+  secondPick = secondRow[randomNum - 1];
+  flipSecondRow(randomNum);
 
   secondCard = secondPick.getElementsByClassName('outline')[0];
   secondPickValue = parseInt(secondCard.getAttribute('data-card-value'));
@@ -175,17 +173,16 @@ function higherOrLower( choice ) {
   var isHigher = playerPickValue < secondPickValue;
   var isLower = playerPickValue > secondPickValue;
 
-   return (choice == 'higher' && isHigher ) || (choice == 'lower' &&  isLower );
+  return (choice == 'HIGHER' && isHigher ) || (choice == 'LOWER' &&  isLower );
 };
 
 // choice is the string "inside" or "outside"
 function insideOrOutside( choice ) {
-  console.log('insideOrOutside');
   var thirdRow = document.getElementsByClassName('cardContainer')[ 1 ].children;
-  var randomCard = pickRandom( thirdRow );
-  randomCard.style.backgroundColor = "#FBF6E2";
 
-  flipThirdRow(randomIndexChosen + 1, randomCard);
+  var randomNum = Math.floor(Math.random() * 2) + 1
+  var randomCard = thirdRow[randomNum - 1];
+  flipThirdRow(randomNum);
 
   var thirdCard = randomCard.getElementsByClassName('outline')[0];
   var thirdPickValue = parseInt(thirdCard.getAttribute('data-card-value'));
@@ -194,20 +191,18 @@ function insideOrOutside( choice ) {
   var isInside = thirdPickValue > Math.min(secondPickValue, playerPickValue) &&
                  thirdPickValue < Math.max(secondPickValue, playerPickValue);
 
-  var isOutside = thirdPickValue < Math.min(secondPick.value, playerPickValue) ||
-                  thirdPickValue > Math.max(secondPick.value, playerPickValue);
+  var isOutside = thirdPickValue < Math.min(secondPickValue, playerPickValue) ||
+                  thirdPickValue > Math.max(secondPickValue, playerPickValue);
 
-  return ( (choice == 'inside' &&  isInside ) || (choice == 'outside' &&  isOutside ) );
+  return ( (choice == 'INSIDE' &&  isInside ) || (choice == 'OUTSIDE' &&  isOutside ) );
 };
 
 // choice is the string "smoke" or "fire"
 function smokeOrFire( choice ) {
-  console.log('smokeOrFire');
   var fourthRow = document.getElementsByClassName('cardContainer')[ 0 ].children;
   var finalCard = fourthRow[ 0 ];
-  finalCard.style.backgroundColor = "#FBF6E2";
 
-  flipFourthRow(1, finalCard);
+  flipFourthRow(1);
 
   var fourthCard = finalCard.getElementsByClassName('outline')[0];
   var fourthPickValue = parseInt(fourthCard.getAttribute('data-card-value'));
@@ -216,11 +211,19 @@ function smokeOrFire( choice ) {
   var isSmoke = (fourthPickSuit == '&clubs;' || fourthPickSuit == '&spades;');
   var isFire = (fourthPickSuit == '&hearts;' || fourthPickSuit == '&diams;');
 
-  return ( ( choice == 'smoke' && isSmoke ) || ( choice == 'fire'  && isFire ) );
+  return ( ( choice == 'SMOKE' && isSmoke ) || ( choice == 'FIRE'  && isFire ) );
 };
 
-function pickPlayer( choice ) {
-  // Sends a message to that player to drink ayyy
+function pickPlayer( playerToDrinkArrayIndex, senderId ) {
+  var playerIdChosen = gameStateObject['playersList'][ playerToDrinkArrayIndex - 1 ];
+  var playerObjectChosen = gameStateObject[ playerIdChosen ];
+  var nameDisplayElement = document.getElementsByClassName('success-player-name')[ 0 ];
+  nameDisplayElement.innerHTML = playerObjectChosen.name.toUpperCase() + ' DRINKS!';
+  showScreen('success');
+  window.messageBus.send( senderId, 'PICK_PLAYER_SUCCESS' );
+  setTimeout( function() {
+    changeTurn();
+  }, 2500 );
 };
 
 function flipAllUp() {
@@ -239,23 +242,23 @@ function flipAllDown() {
   }
 }
 
-function flipFirstRow( cardNum, cardChosen ) {
-  flipRow(3, cardNum, cardChosen);
+function flipFirstRow( cardNum ) {
+  flipRow(3, cardNum );
 };
 
-function flipSecondRow( cardNum, cardChosen ) {
-  flipRow(2, cardNum, cardChosen);
+function flipSecondRow( cardNum ) {
+  flipRow(2, cardNum );
 };
 
-function flipThirdRow( cardNum, cardChosen ) {
-  flipRow(1, cardNum, cardChosen);
+function flipThirdRow( cardNum ) {
+  flipRow(1, cardNum );
 };
 
-function flipFourthRow( cardNum, cardChosen ) {
-  flipRow(0, cardNum, cardChosen);
+function flipFourthRow( cardNum ) {
+  flipRow(0, cardNum );
 };
 
-function flipRow( rowNum, cardNum, cardChosen ) {
+function flipRow( rowNum, cardNum ) {
   var row = document.getElementsByClassName('cardRow')[rowNum];
   var card = row.getElementsByClassName('cardWrapper')[cardNum - 1];
   flipCard(card);
@@ -307,7 +310,9 @@ function setupGame() {
     hostSenderId: '',
     numberOfPlayers: '',
     numberConnected: '',
-    deck: new Deck()
+    deck: new Deck(),
+    playersList: [],
+    turn: 0
   };
 }
 
@@ -337,4 +342,14 @@ function sendStartGame( senderId ) {
 
 function sendNameAck( senderId ) {
   window.messageBus.send( senderId, 'NAME_RECEIVED' );
+}
+
+function sendLoseMessage( senderId ) {
+  window.messageBus.send( senderId, 'FAILURE' );
+  setTimeout( function() {
+    showScreen('failure');
+    setTimeout( function() {
+      changeTurn();
+    }, 2500 );
+  }, 2500 );
 }
