@@ -404,8 +404,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PickPlayer.class);
             startActivity(intent);
         }
-        /* TODO make a 2nd screen for failure
-        just using the waiting screen atm */
+        /* TODO make a 2nd screen for failure/winning
+        just using the "waiting for players..." screen atm */
         else if (message.equals("FAILURE") ||
                 message.equals("PICK_PLAYER_SUCCESS")) {
             Log.i(TAG, "switching to failure screen");
@@ -414,6 +414,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (message.equals("MAX_PLAYERS_REACHED")) {
             Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG).show();
+        }
+        else if (message.equals("INVALID_PLAYER_CHOICE")) {
+            Toast.makeText(MainActivity.this, "Invalid player choice. Pick someone else.", Toast.LENGTH_LONG).show();
         }
     }
 

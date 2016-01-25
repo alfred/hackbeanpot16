@@ -215,6 +215,9 @@ function smokeOrFire( choice ) {
 };
 
 function pickPlayer( playerToDrinkArrayIndex, senderId ) {
+  if (playerToDrinkArrayIndex + 1 > gameStateObject['numberOfPlayers']) {
+    window.messageBus.send(senderId, 'INVALID_PLAYER_CHOICE');
+  }
   var playerIdChosen = gameStateObject['playersList'][ playerToDrinkArrayIndex - 1 ];
   var playerObjectChosen = gameStateObject[ playerIdChosen ];
   var nameDisplayElement = document.getElementsByClassName('success-player-name')[ 0 ];
