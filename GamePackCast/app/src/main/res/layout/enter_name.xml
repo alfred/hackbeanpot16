@@ -28,7 +28,8 @@
             android:layout_height="40dp"
             android:id="@+id/editText"
             android:layout_below="@id/textView"
-            android:hint="Enter your name..." />
+            android:hint="Enter your name..."
+            android:maxLength="10"/>
 
         <Button
             android:background="@android:color/holo_blue_dark"

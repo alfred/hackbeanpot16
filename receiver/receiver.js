@@ -77,7 +77,7 @@ window.onload = function() {
           'name' : messageData[ 1 ],
           'playerNumber' : gameStateObject['numberConnected']
         };
-        displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
+        displayPlayerName( gameStateObject['playerNumber'], messageData[ 1 ]);
         gameStateObject.playersList.push(event.senderId);
 
         if ( event.senderId === gameStateObject['hostSenderId'] ) {

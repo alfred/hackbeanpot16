@@ -416,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG).show();
         }
         else if (message.equals("INVALID_PLAYER_CHOICE")) {
-            Toast.makeText(MainActivity.this, "Invalid player choice. Pick someone else.", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Invalid play er choice. Pick someone else.", Toast.LENGTH_LONG).show();
         }
     }
 
