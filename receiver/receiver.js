@@ -92,7 +92,7 @@ window.onload = function() {
         showScreen('show-connected');
         // unhide all the player icons at the bottom
         for (i = 0; i < gameStateObject['numberOfPlayers']; i++) {
-          document.getElementsByClassName("player-name")[i].style.hidden = false;
+          document.getElementsByClassName("player-name")[i].style.visibility = "visible";
         }
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
