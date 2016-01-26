@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.cast.ApplicationMetadata;
 import com.google.android.gms.cast.Cast;
 import com.google.android.gms.cast.CastDevice;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean mApplicationStarted;
     private boolean mWaitingForReconnect;
     private String mSessionId;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(
                 getResources().getColor(android.R.color.transparent)));
 
+        //Set up them ads
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         // Configure Cast device discovery
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
         mMediaRouteSelector = new MediaRouteSelector.Builder()
@@ -408,6 +415,16 @@ public class MainActivity extends AppCompatActivity {
         just using the "waiting for players..." screen atm */
         else if (message.equals("FAILURE") ||
                 message.equals("PICK_PLAYER_SUCCESS")) {
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
+                    .build();
+            mInterstitialAd.loadAd(adRequest);
+            if (mInterstitialAd.isLoaded()) {
+                Log.i(TAG, "attempting to show ad");
+                mInterstitialAd.show();
+            } else {
+                Log.e(TAG, "Ad did not load");
+            }
             Log.i(TAG, "switching to failure screen");
             Intent intent = new Intent(this, Waiting.class);
             startActivity(intent);
