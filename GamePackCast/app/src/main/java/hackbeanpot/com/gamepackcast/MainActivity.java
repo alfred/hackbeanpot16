@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.cast.ApplicationMetadata;
@@ -418,13 +419,18 @@ public class MainActivity extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
                     .build();
+            Log.i(TAG, "ad requested");
             mInterstitialAd.loadAd(adRequest);
-            if (mInterstitialAd.isLoaded()) {
-                Log.i(TAG, "attempting to show ad");
-                mInterstitialAd.show();
-            } else {
-                Log.e(TAG, "Ad did not load");
-            }
+            mInterstitialAd.setAdListener(new AdListener(){
+                public void onAdLoaded(){
+                    if (mInterstitialAd.isLoaded()) {
+                        Log.i(TAG, "attempting to show ad");
+                        mInterstitialAd.show();
+                    } else {
+                        Log.e(TAG, "Ad did not load");
+                    }
+                }
+            });
             Log.i(TAG, "switching to failure screen");
             Intent intent = new Intent(this, Waiting.class);
             startActivity(intent);

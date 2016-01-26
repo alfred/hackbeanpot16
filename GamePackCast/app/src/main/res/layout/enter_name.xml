@@ -29,7 +29,7 @@
             android:id="@+id/editText"
             android:layout_below="@id/textView"
             android:hint="Enter your name..."
-            android:maxLength="10"/>
+            android:maxLength="20"/>
 
         <Button
             android:background="@android:color/holo_blue_dark"

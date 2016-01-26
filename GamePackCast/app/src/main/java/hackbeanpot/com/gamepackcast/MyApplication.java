@@ -11,6 +11,7 @@ public class MyApplication extends Application {
     private GoogleApiClient mApiClient;
     private MainActivity.HelloWorldChannel mHelloWorldChannel;
 
+
     public MainActivity.HelloWorldChannel getmHelloWorldChannel() {
         return mHelloWorldChannel;
     }
