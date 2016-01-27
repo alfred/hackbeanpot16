@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.cast.ApplicationMetadata;
 import com.google.android.gms.cast.Cast;
@@ -74,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
                 .addControlCategory(CastMediaControlIntent.categoryForCast(getResources()
                         .getString(R.string.app_id))).build();
         mMediaRouterCallback = new MyMediaRouterCallback();
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
+                .build();
+        adView.loadAd(adRequest);
 
     }
 
@@ -417,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
         else if (message.equals("FAILURE") ||
                 message.equals("PICK_PLAYER_SUCCESS")) {
             AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
+                    //.addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
                     .build();
             Log.i(TAG, "ad requested");
             mInterstitialAd.loadAd(adRequest);

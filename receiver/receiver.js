@@ -26,34 +26,60 @@ window.onload = function() {
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
 
     // window.messageBus.send( event.senderId, 'From Chromecast:' + event.data )
-    if ( gameStateObject.hostSenderId === '' ) {
+    /*if ( gameStateObject.hostSenderId === '' ) {
       gameStateObject.hostSenderId = event.senderId;
       showScreen( 'splash' );
       setTimeout( function() {
         showScreen( 'choose-players', 2500 );
-        // Increment numberConnected
-        gameStateObject['numberConnected']++;
         askForNumberOfPlayers( gameStateObject.hostSenderId );
       }, 2500 );
-    } else {
+    } else {*/
       // Cap number of players, fuck big groups
-      if ( gameStateObject['numberConnected'] === gameStateObject['numberOfPlayers'] ) {
+      // capping at 4
+      if ( gameStateObject['numberConnected'] === 4) { //gameStateObject['numberOfPlayers'] ) {
         window.messageBus.send( event.senderId, 'MAX_PLAYERS_REACHED' )
       } else {
         askForAName( event.senderId );
-        // Increment numberConnected
         gameStateObject['numberConnected']++;
+        //add the player to the game
+        var player = {
+          'playerId' = event.senderId
+          'name' : messageData[ 1 ],
+          'playerNumber' : gameStateObject['numberConnected']
+        };
+        gameStateObject.playersList.push(player);
       }
-    }
+    //}
+    // Increment numberConnected
   };
 
   // handler for 'senderdisconnected' event
   castReceiverManager.onSenderDisconnected = function( event ) {
     console.log('Received Sender Disconnected event: ' + event.data );
     // If everyone disconnects close the window
-    if ( window.castReceiverManager.getSenders().length == 0 ) {
+    gameStateObject['numberConnected']--;
+    if ( window.castReceiverManager.getSenders().length == 0  
+      || gameStateObject['numberConnected'] == 0) {
       window.close();
     }
+    //if the players are playing the game, we want the ability to
+    //drop in/drop out. This means that when someone disconnects, we'll move
+    //every other player over one space and redisplay them onscreen
+    var disconnectingPlayerIndex = findPlayerIndexBySenderId(event.senderId);
+    if (gameStateObject['gameStarted']) {
+      for(var oldPlayerNumber = gameStateObject['playerList'][disconnectingPlayerIndex].playerNumber + 1;
+       i <= gameStateObject['numberConnected']; i++) {
+        //decrement the player number of everyone after the disconnector
+        var newPlayerNumber = oldPlayerNumber - 1;
+        gameStateObject['playerList'][oldPlayerNumber].playerNumber = newPlayerNumber;
+        gameStateObject['playerList'][newPlayerNumber] = gameStateObject['playerList'][oldPlayerNumber];
+        displayPlayerName(newPlayerNumber, gameStateObject['playerList'][newPlayerNumber].name)
+      }
+    }
+    //last step is to just delete the last player so there are no dupes
+    var droppedPlayerNumber = gameStateObject['numberConnected'] + 1
+    gameStateObject['playerList'][droppedPlayerNumber] + 1] = {}
+    displayPlayerName(droppedPlayerNumber, "Connect now to join!", true)
   };
 
   // handler for 'systemvolumechanged' event
@@ -73,20 +99,17 @@ window.onload = function() {
 
     switch ( messageData[ 0 ] ) {
       case 'NAME_ENTERED':
-        gameStateObject[ event.senderId ] = {
-          'name' : messageData[ 1 ],
-          'playerNumber' : gameStateObject['numberConnected']
-        };
-        displayPlayerName( gameStateObject['numberConnected'], messageData[ 1 ]);
-        gameStateObject.playersList.push(event.senderId);
+        var senderPlayerId = findPlayerIndexBySenderId(event.senderId);
+        gameStateObject['playersList'][senderPlayerId].name = messageData[ 1 ];
+        displayPlayerName( gameStateObject['playersList'][senderPlayerId].playerNumber, messageData[ 1 ]);
 
-        if ( event.senderId === gameStateObject['hostSenderId'] ) {
+        if ( event.senderId === gameStateObject['hostSenderId'] && !gameStateObject['gameStarted']) {
           sendStartGame( event.senderId );
         } else {
           sendNameAck( event.senderId );
         }
       break;
-      case 'NUM_PLAYERS':
+      /*case 'NUM_PLAYERS':
         gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
         // Move to the player list screen
         showScreen('show-connected');
@@ -96,7 +119,7 @@ window.onload = function() {
         }
         // Ask for the hosts name
         askForAName( gameStateObject['hostSenderId'] );
-      break;
+      break;*/
       case 'PICK_CARD': // pick a card from row 1
         chooseCard( messageData[ 1 ] );
         window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
@@ -128,6 +151,7 @@ window.onload = function() {
       case 'START_GAME': // Host starts the game
         window.messageBus.send( event.senderId, 'GAME_HAS_STARTED' );
         showScreen('gameboard');
+        gameStateObject['gameStarted'] = true
         placeCards( gameStateObject );
       break;
     }
@@ -313,18 +337,24 @@ function setupGame() {
     hostSenderId: '',
     numberOfPlayers: '',
     numberConnected: '',
+    gameStarted: false,
     deck: new Deck(),
     playersList: [],
     turn: 0
   };
 }
 
-function displayPlayerName( playerNumber, playerName ) {
+function displayPlayerName( playerNumber, playerName, hide ) {
   var playerNameElements = document.getElementsByClassName('player-name');
   // -1 cause player numbers are 1-4 and arrays are indexed by 0
   var playerNameElement = playerNameElements[ playerNumber - 1 ];
   playerNameElement.style.visibility = 'visible';
   playerNameElement.children[0].innerHTML = playerName;
+    //throwing this case in here to make this method double as a way to hide players.
+  if (hide) {
+    playerNameElement.children[1].src = "../assets/ProfileImgGrey.png";
+    break;
+  }
   if (playerNumber == 1) {
     playerNameElement.children[1].src = "../assets/ProfileImgBlue.png";
   }
@@ -355,4 +385,12 @@ function sendLoseMessage( senderId ) {
       changeTurn();
     }, 2500 );
   }, 2500 );
+}
+
+function findPlayerIndexBySenderId(senderId) {
+  for (i = 0; i < gameStateObject['numberConnected']; i++) {
+    if (senderId === gameStateObject['playersList'][i].playerId) {
+      return i;
+    }
+  }
 }

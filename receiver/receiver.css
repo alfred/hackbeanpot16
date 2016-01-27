@@ -85,7 +85,6 @@ div#container {
 }
 
 .show-connected .player-name {
-  visibility: hidden;
   padding: 5px 15px;
   width: 300px;
   height:100%;

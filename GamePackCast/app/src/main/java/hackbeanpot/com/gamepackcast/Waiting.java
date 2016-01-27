@@ -20,7 +20,7 @@ public class Waiting extends MainActivity {
 
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
+                //.addTestDevice("BE9C9EC7051FB80620465C0B0BC0FF53")
                 .build();
         adView.loadAd(adRequest);
     }
