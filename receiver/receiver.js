@@ -26,14 +26,13 @@ window.onload = function() {
     console.log( window.castReceiverManager.getSender( event.data ).userAgent );
 
     // window.messageBus.send( event.senderId, 'From Chromecast:' + event.data )
-    /*if ( gameStateObject.hostSenderId === '' ) {
+    if ( gameStateObject.hostSenderId === '' ) {
       gameStateObject.hostSenderId = event.senderId;
       showScreen( 'splash' );
       setTimeout( function() {
-        showScreen( 'choose-players', 2500 );
-        askForNumberOfPlayers( gameStateObject.hostSenderId );
+        showScreen( 'show-connected', 2500 );
       }, 2500 );
-    } else {*/
+    } else {
       // Cap number of players, fuck big groups
       // capping at 4
       if ( gameStateObject['numberConnected'] === 4) { //gameStateObject['numberOfPlayers'] ) {
