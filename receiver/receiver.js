@@ -43,8 +43,8 @@ window.onload = function() {
         gameStateObject['numberConnected']++;
         //add the player to the game
         var player = {
-          'playerId' = event.senderId
-          'name' : messageData[ 1 ],
+          'playerId' : event.senderId,
+          'name' : '',
           'playerNumber' : gameStateObject['numberConnected']
         };
         gameStateObject.playersList.push(player);
@@ -78,7 +78,7 @@ window.onload = function() {
     }
     //last step is to just delete the last player so there are no dupes
     var droppedPlayerNumber = gameStateObject['numberConnected'] + 1
-    gameStateObject['playerList'][droppedPlayerNumber] + 1] = {}
+    gameStateObject['playerList'][droppedPlayerNumber + 1] = {}
     displayPlayerName(droppedPlayerNumber, "Connect now to join!", true)
   };
 
@@ -345,6 +345,7 @@ function setupGame() {
 }
 
 function displayPlayerName( playerNumber, playerName, hide ) {
+  if (typeof(hide)==='undefined') hide = false;
   var playerNameElements = document.getElementsByClassName('player-name');
   // -1 cause player numbers are 1-4 and arrays are indexed by 0
   var playerNameElement = playerNameElements[ playerNumber - 1 ];
@@ -353,7 +354,7 @@ function displayPlayerName( playerNumber, playerName, hide ) {
     //throwing this case in here to make this method double as a way to hide players.
   if (hide) {
     playerNameElement.children[1].src = "../assets/ProfileImgGrey.png";
-    break;
+    return;
   }
   if (playerNumber == 1) {
     playerNameElement.children[1].src = "../assets/ProfileImgBlue.png";
