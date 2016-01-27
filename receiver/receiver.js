@@ -31,6 +31,7 @@ window.onload = function() {
       showScreen( 'splash' );
       setTimeout( function() {
         showScreen( 'show-connected', 2500 );
+        askForAName( event.senderId );
       }, 2500 );
       gameStateObject['numberConnected']++;
       //add the player to the game
@@ -40,7 +41,6 @@ window.onload = function() {
         'playerNumber' : gameStateObject['numberConnected']
       };
       gameStateObject.playersList.push(player);
-      askForAName( event.senderId );
     } else {
       // Cap number of players, fuck big groups
       // capping at 4
@@ -76,15 +76,13 @@ window.onload = function() {
     //drop in/drop out. This means that when someone disconnects, we'll move
     //every other player over one space and redisplay them onscreen
     var disconnectingPlayerIndex = findPlayerIndexBySenderId(event.senderId);
-    if (gameStateObject['gameStarted']) {
-      for(var oldPlayerNumber = gameStateObject['playerList'][disconnectingPlayerIndex].playerNumber + 1;
-       i <= gameStateObject['numberConnected']; i++) {
-        //decrement the player number of everyone after the disconnector
-        var newPlayerNumber = oldPlayerNumber - 1;
-        gameStateObject['playerList'][oldPlayerNumber].playerNumber = newPlayerNumber;
-        gameStateObject['playerList'][newPlayerNumber] = gameStateObject['playerList'][oldPlayerNumber];
-        displayPlayerName(newPlayerNumber, gameStateObject['playerList'][newPlayerNumber].name)
-      }
+    for(var oldPlayerNumber = gameStateObject['playerList'][disconnectingPlayerIndex].playerNumber + 1;
+     i <= gameStateObject['numberConnected']; i++) {
+      //decrement the player number of everyone after the disconnector
+      var newPlayerNumber = oldPlayerNumber - 1;
+      gameStateObject['playerList'][oldPlayerNumber].playerNumber = newPlayerNumber;
+      gameStateObject['playerList'][newPlayerNumber] = gameStateObject['playerList'][oldPlayerNumber];
+      displayPlayerName(newPlayerNumber, gameStateObject['playerList'][newPlayerNumber].name)
     }
     //last step is to just delete the last player so there are no dupes
     var droppedPlayerNumber = gameStateObject['numberConnected'] + 1
