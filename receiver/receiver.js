@@ -32,6 +32,8 @@ window.onload = function() {
       setTimeout( function() {
         showScreen( 'show-connected', 2500 );
       }, 2500 );
+      gameStateObject['numberConnected']++;
+      askForAName( event.senderId );
     } else {
       // Cap number of players, fuck big groups
       // capping at 4
