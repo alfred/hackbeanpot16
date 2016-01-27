@@ -97,7 +97,6 @@ div#container {
   display: flex;
   justify-content: space-between;
   clear:both;
-  visibility: hidden;
   font-weight:bold;
   text-align: center;
 }
