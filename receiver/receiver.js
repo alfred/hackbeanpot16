@@ -33,6 +33,13 @@ window.onload = function() {
         showScreen( 'show-connected', 2500 );
       }, 2500 );
       gameStateObject['numberConnected']++;
+      //add the player to the game
+      var player = {
+        'playerId' : event.senderId,
+        'name' : '',
+        'playerNumber' : gameStateObject['numberConnected']
+      };
+      gameStateObject.playersList.push(player);
       askForAName( event.senderId );
     } else {
       // Cap number of players, fuck big groups
