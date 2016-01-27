@@ -48,8 +48,7 @@ window.onload = function() {
         };
         gameStateObject.playersList.push(player);
       }
-    //}
-    // Increment numberConnected
+    }
   };
 
   // handler for 'senderdisconnected' event
