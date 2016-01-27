@@ -57,9 +57,12 @@ window.onload = function() {
   castReceiverManager.onSenderDisconnected = function( event ) {
     console.log('Received Sender Disconnected event: ' + event.data );
     // If everyone disconnects close the window
+    // or if host disconnects before the game has started close it. This is because only the host
+    //gets start game, so if they disconnect befoer the game is started then its fucked
     gameStateObject['numberConnected']--;
     if ( window.castReceiverManager.getSenders().length == 0  
-      || gameStateObject['numberConnected'] == 0) {
+      || gameStateObject['numberConnected'] == 0
+      || (!gameStateObject['gameStarted'] && event.senderId === gameStateObject.hostSenderId)) {
       window.close();
     }
     //if the players are playing the game, we want the ability to
