@@ -63,6 +63,7 @@ window.onload = function() {
   // handler for 'senderdisconnected' event
   castReceiverManager.onSenderDisconnected = function( event ) {
     console.log('Received Sender Disconnected event: ' + event.data );
+    console.log('the other log doesnt work or something. disconnect' );
     // If everyone disconnects close the window
     // or if host disconnects before the game has started close it. This is because only the host
     //gets start game, so if they disconnect befoer the game is started then its fucked
