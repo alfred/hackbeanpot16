@@ -33,7 +33,7 @@ window.onload = function() {
         showScreen( 'show-connected', 2500 );
         askForAName( event.senderId );
       }, 2500 );
-      gameStateObject['numberConnected']++;
+      gameStateObject['numberConnected'] += 1;
       //add the player to the game
       var player = {
         'playerId' : event.senderId,
@@ -48,7 +48,7 @@ window.onload = function() {
         window.messageBus.send( event.senderId, 'MAX_PLAYERS_REACHED' )
       } else {
         askForAName( event.senderId );
-        gameStateObject['numberConnected']++;
+        gameStateObject['numberConnected'] += 1;
         //add the player to the game
         var player = {
           'playerId' : event.senderId,
@@ -67,7 +67,7 @@ window.onload = function() {
     // If everyone disconnects close the window
     // or if host disconnects before the game has started close it. This is because only the host
     //gets start game, so if they disconnect befoer the game is started then its fucked
-    gameStateObject['numberConnected']--;
+    gameStateObject['numberConnected'] -= 1;
     if ( window.castReceiverManager.getSenders().length == 0  
       || gameStateObject['numberConnected'] == 0
       || (!gameStateObject['gameStarted'] && event.senderId === gameStateObject.hostSenderId)) {
@@ -90,7 +90,7 @@ window.onload = function() {
     gameStateObject['playerList'][droppedPlayerNumber + 1] = {
           'playerId' : '',
           'name' : '',
-          'playerNumber' : ''
+          'playerNumber' : 999
         };
     displayPlayerName(droppedPlayerNumber, "Connect now to join!", true)
   };
