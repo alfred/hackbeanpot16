@@ -21,9 +21,6 @@ div#container {
   max-width: 1270px;
   margin: 0 auto;
   top: 0;
-  border-left: 15px solid white;
-  border-right: 15px solid white;
-  background-color: white;
 }
 
 .row {
@@ -91,7 +88,7 @@ div#container {
   font-weight:bold;
 }
 
-.player-name-container { 
+.player-name-container {
   margin-left: 100px;
   margin-right: 100px;
   display: flex;
