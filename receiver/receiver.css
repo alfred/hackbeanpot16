@@ -13,14 +13,15 @@ body {
   background-color: #e7e7e7;
   color: #333;
   margin: 0;
-  padding: 0 0 15px 0;
 }
 
 div#container {
   // offset for borders
   max-width: 1270px;
+  max-height: 100vh;
   margin: 0 auto;
   top: 0;
+  overflow: hidden;
 }
 
 .row {
@@ -28,18 +29,24 @@ div#container {
   overflow: hidden;
   display: block;
   width: 100%;
-  height: 700px;
+  height: 100vh;
 }
 
 /** Splash screen */
 .splash {
-  margin-top: 300px;
   display: none;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  z-index: 10;
+  background-color: #e7e7e7;
+  text-align: center;
 }
 
 .splash div {
-  width: 1270px;
-  height: 100%;
+  padding-top: 300px;
+  width: 100vw;
+  height: 100vh;
   text-align: center;
 }
 
@@ -81,25 +88,36 @@ div#container {
   height: 450px;
 }
 
-.show-connected .player-name {
-  padding: 5px 15px;
-  width: 300px;
-  height:100%;
-  font-weight:bold;
-}
-
-.player-name-container {
-  margin-left: 100px;
-  margin-right: 100px;
-  display: flex;
-  justify-content: space-between;
-  clear:both;
-  font-weight:bold;
-  text-align: center;
-}
-
 .waiting {
   height: 70%;
+}
+
+
+.player-name-container {
+  font-weight:bold;
+  text-align: center;
+  z-index: 5;
+  position: absolute;
+  width: 100%;
+  margin: 0 auto;
+  bottom: 0;
+  overflow: hidden; // This is probably the most important line of css on this
+}
+
+.player-name-container .player-name {
+  display: inline-block;
+  margin: 0 64px;
+}
+
+.player-name-container .player-name p {
+  /*display: inline;*/
+}
+
+.player-img {
+  height: 100px;
+  width: 93px;
+  position: relative;
+  bottom: -5px;
 }
 
 /** ================================== GAME BOARD styles ==================== */
@@ -185,7 +203,8 @@ div#container {
   height: 100vh;
   width: 100vw;
   position: relative;
-  right: 15px;
+  /*right: 15px;*/
+  z-index: 10;
   background-color: #FC0809;
   text-align: center;
   color: #FFF;
@@ -201,8 +220,9 @@ div#container {
   width: 100vw;
   background-color: #689D13;
   position: relative;
-  right: 15px;
+  /*right: 15px;*/
   color: #EFEFEF;
+  z-index: 10;
 }
 
 .success div {
