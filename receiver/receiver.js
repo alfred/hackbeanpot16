@@ -172,7 +172,7 @@ function changeTurn() {
   placeCards( gameStateObject );
   //what is even going on anymore
   gameStateObject.playersList[gameStateObject.turn].turn = true;
-  window.messageBus.send( gameStateObject.playersList[gameStateObject.turn], 'GAME_HAS_STARTED' );
+  window.messageBus.send( gameStateObject.playersList[gameStateObject.turn].playerId, 'GAME_HAS_STARTED' );
 }
 
 function chooseCard( cardNumber ) {
