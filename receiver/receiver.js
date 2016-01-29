@@ -80,7 +80,9 @@ window.onload = function() {
     var disconnectingPlayerIndex = findPlayerIndexBySenderId(event.senderId);
     //if it was the disconnected players turn, pass it to the next person
     if (gameStateObject['playersList'][disconnectingPlayerIndex].turn) {
-      changeTurn();
+      //the reason we do this is just a function of the way the change turn
+      //method works. there is an edge case where no one gets a turn
+      needToChangeTurn = true;
     }
     for(var oldPlayerNumber = disconnectingPlayerIndex + 1; i < gameStateObject['numberConnected']; i++) {
       //decrement the player number of everyone after the disconnector
@@ -93,6 +95,9 @@ window.onload = function() {
     var droppedPlayerNumber = gameStateObject['numberConnected'] //this seems dumb but think about it
     displayPlayerName(droppedPlayerNumber + 1, "Connect now to join!", true);
     gameStateObject['playersList'].splice(droppedPlayerNumber, 1);
+    if (needToChangeTurn) {
+      changeTurn();
+    }
   };
 
   // handler for 'systemvolumechanged' event
