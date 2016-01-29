@@ -53,7 +53,7 @@ window.onload = function() {
         var player = {
           'playerId' : event.senderId,
           'name' : '',
-          'playerNumber' : gameStateObject['numberConnected']
+          'playerNumber' : gameStateObject['numberConnected'],
           'turn' : false
         };
         gameStateObject.playersList.push(player);
