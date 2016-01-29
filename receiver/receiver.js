@@ -54,6 +54,7 @@ window.onload = function() {
           'playerId' : event.senderId,
           'name' : '',
           'playerNumber' : gameStateObject['numberConnected']
+          'turn' : false
         };
         gameStateObject.playersList.push(player);
       }
@@ -87,6 +88,10 @@ window.onload = function() {
     //last step is to just delete the last player so there are no dupes
     var droppedPlayerNumber = gameStateObject['numberConnected'] //this seems dumb but think about it
     displayPlayerName(droppedPlayerNumber + 1, "Connect now to join!", true);
+    //if it was the disconnected players turn, pass it to the next person
+    if (gameStateObject['playersList'][disconnectingPlayerIndex].turn) {
+      changeTurn();
+    }
     gameStateObject['playersList'].splice(droppedPlayerNumber, 1);
   };
 
@@ -164,6 +169,8 @@ function changeTurn() {
   flipAllDown();
   showScreen('gameboard');
   placeCards( gameStateObject );
+  //what is even going on anymore
+  gameStateObject.playersList[gameStateObject.turn].turn = true;
   window.messageBus.send( gameStateObject.playersList[gameStateObject.turn], 'GAME_HAS_STARTED' );
 }
 
