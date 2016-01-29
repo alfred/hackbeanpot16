@@ -386,7 +386,7 @@ function sendLoseMessage( senderId ) {
 }
 
 function findPlayerIndexBySenderId(senderId) {
-  for (i = 0; i < gameStateObject['numberConnected']; i++) {
+  for (i = 0; i <= gameStateObject['numberConnected']; i++) {
     if (senderId === gameStateObject['playersList'][i].playerId) {
       return i;
     }
