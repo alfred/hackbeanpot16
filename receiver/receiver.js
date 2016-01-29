@@ -80,9 +80,9 @@ window.onload = function() {
     for(var oldPlayerNumber = disconnectingPlayerIndex + 1; i < gameStateObject['numberConnected']; i++) {
       //decrement the player number of everyone after the disconnector
       var newPlayerNumber = oldPlayerNumber - 1;
-      gameStateObject['playerList'][oldPlayerNumber].playerNumber = newPlayerNumber;
-      gameStateObject['playerList'][newPlayerNumber] = gameStateObject['playerList'][oldPlayerNumber];
-      displayPlayerName(newPlayerNumber, gameStateObject['playerList'][newPlayerNumber].name)
+      gameStateObject['playersList'][oldPlayerNumber].playerNumber = newPlayerNumber;
+      gameStateObject['playersList'][newPlayerNumber] = gameStateObject['playersList'][oldPlayerNumber];
+      displayPlayerName(newPlayerNumber, gameStateObject['playersList'][newPlayerNumber].name)
     }
     //last step is to just delete the last player so there are no dupes
     var droppedPlayerNumber = gameStateObject['numberConnected'] //this seems dumb but think about it
