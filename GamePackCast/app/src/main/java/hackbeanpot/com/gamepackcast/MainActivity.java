@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onRouteUnselected(MediaRouter router, MediaRouter.RouteInfo info) {
             Log.d(TAG, "onRouteUnselected: info=" + info);
-            //teardown(false);
+            teardown(false);
             mSelectedDevice = null;
         }
     }
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onApplicationDisconnected(int errorCode) {
                     Log.d(TAG, "application has stopped");
-                    //teardown(true);
+                    teardown(true);
                 }
 
             };

@@ -44,7 +44,7 @@ window.onload = function() {
     } else {
       // Cap number of players, fuck big groups
       // capping at 4
-      if ( gameStateObject['numberConnected'] === 4) { //gameStateObject['numberOfPlayers'] ) {
+      if ( gameStateObject['numberConnected'] === 4) { 
         window.messageBus.send( event.senderId, 'MAX_PLAYERS_REACHED' )
       } else {
         askForAName( event.senderId );
@@ -122,17 +122,6 @@ window.onload = function() {
           sendNameAck( event.senderId );
         }
       break;
-      /*case 'NUM_PLAYERS':
-        gameStateObject['numberOfPlayers'] = parseInt( messageData[ 1 ] );
-        // Move to the player list screen
-        showScreen('show-connected');
-        // unhide all the player icons at the bottom
-        for (i = 0; i < gameStateObject['numberOfPlayers']; i++) {
-          document.getElementsByClassName("player-name")[i].style.visibility = "visible";
-        }
-        // Ask for the hosts name
-        askForAName( gameStateObject['hostSenderId'] );
-      break;*/
       case 'PICK_CARD': // pick a card from row 1
         chooseCard( messageData[ 1 ] );
         window.messageBus.send( event.senderId, 'PICK_CARD_SUCCESS' );
@@ -252,7 +241,7 @@ function smokeOrFire( choice ) {
 };
 
 function pickPlayer( playerToDrinkArrayIndex, senderId ) {
-  if (playerToDrinkArrayIndex + 1 > gameStateObject['numberOfPlayers']) {
+  if (playerToDrinkArrayIndex + 1 > gameStateObject['numberConnected']) {
     window.messageBus.send(senderId, 'INVALID_PLAYER_CHOICE');
   }
   var playerIdChosen = gameStateObject['playersList'][ playerToDrinkArrayIndex - 1 ];
@@ -341,14 +330,9 @@ function askForAName( senderId ) {
   window.messageBus.send( senderId, 'ENTER_NAME' );
 }
 
-function askForNumberOfPlayers( senderId ) {
-  window.messageBus.send( senderId, 'ENTER_NUM_PLAYERS' );
-}
-
 function setupGame() {
   return {
     hostSenderId: '',
-    numberOfPlayers: 0,
     numberConnected: 0,
     gameStarted: false,
     deck: new Deck(),
