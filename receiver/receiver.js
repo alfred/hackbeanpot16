@@ -85,12 +85,8 @@ window.onload = function() {
       displayPlayerName(newPlayerNumber, gameStateObject['playerList'][newPlayerNumber].name)
     }
     //last step is to just delete the last player so there are no dupes
-    var droppedPlayerNumber = gameStateObject['numberConnected']
-    gameStateObject['playerList'][droppedPlayerNumber] = {
-          'playerId' : '',
-          'name' : '',
-          'playerNumber' : 999
-        };
+    var droppedPlayerNumber = gameStateObject['numberConnected'] //this seems dumb but think about it
+    gameStateObject['playerList'].splice(droppedPlayerNumber, 1);
     displayPlayerName(droppedPlayerNumber, "Connect now to join!", true)
   };
 
