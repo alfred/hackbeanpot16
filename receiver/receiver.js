@@ -77,7 +77,7 @@ window.onload = function() {
     //drop in/drop out. This means that when someone disconnects, we'll move
     //every other player over one space and redisplay them onscreen
     var disconnectingPlayerIndex = findPlayerIndexBySenderId(event.senderId);
-    for(var oldPlayerNumber = disconnectingPlayerIndex + 1; i <= gameStateObject['numberConnected']; i++) {
+    for(var oldPlayerNumber = disconnectingPlayerIndex + 1; i < gameStateObject['numberConnected']; i++) {
       //decrement the player number of everyone after the disconnector
       var newPlayerNumber = oldPlayerNumber - 1;
       gameStateObject['playerList'][oldPlayerNumber].playerNumber = newPlayerNumber;
@@ -85,8 +85,8 @@ window.onload = function() {
       displayPlayerName(newPlayerNumber, gameStateObject['playerList'][newPlayerNumber].name)
     }
     //last step is to just delete the last player so there are no dupes
-    var droppedPlayerNumber = gameStateObject['numberConnected'] + 1
-    gameStateObject['playerList'][droppedPlayerNumber + 1] = {
+    var droppedPlayerNumber = gameStateObject['numberConnected']
+    gameStateObject['playerList'][droppedPlayerNumber] = {
           'playerId' : '',
           'name' : '',
           'playerNumber' : 999
