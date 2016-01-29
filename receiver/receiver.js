@@ -82,7 +82,7 @@ window.onload = function() {
       var newPlayerNumber = oldPlayerNumber - 1;
       gameStateObject['playersList'][oldPlayerNumber].playerNumber = newPlayerNumber;
       gameStateObject['playersList'][newPlayerNumber] = gameStateObject['playersList'][oldPlayerNumber];
-      displayPlayerName(newPlayerNumber, gameStateObject['playersList'][newPlayerNumber].name)
+      displayPlayerName(oldPlayerNumber, gameStateObject['playersList'][newPlayerNumber].name)
     }
     //last step is to just delete the last player so there are no dupes
     var droppedPlayerNumber = gameStateObject['numberConnected'] //this seems dumb but think about it
