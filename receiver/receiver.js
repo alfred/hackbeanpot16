@@ -86,8 +86,8 @@ window.onload = function() {
     }
     //last step is to just delete the last player so there are no dupes
     var droppedPlayerNumber = gameStateObject['numberConnected'] //this seems dumb but think about it
+    displayPlayerName(droppedPlayerNumber + 1, "Connect now to join!", true);
     gameStateObject['playersList'].splice(droppedPlayerNumber, 1);
-    displayPlayerName(droppedPlayerNumber - 1, "Connect now to join!", true)
   };
 
   // handler for 'systemvolumechanged' event
@@ -341,7 +341,6 @@ function displayPlayerName( playerNumber, playerName, hide ) {
   var playerNameElements = document.getElementsByClassName('player-name');
   // -1 cause player numbers are 1-4 and arrays are indexed by 0
   var playerNameElement = playerNameElements[ playerNumber - 1 ];
-  playerNameElement.style.visibility = 'visible';
   playerNameElement.children[0].innerHTML = playerName;
     //throwing this case in here to make this method double as a way to hide players.
   if (hide) {
