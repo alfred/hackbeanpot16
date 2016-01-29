@@ -1,10 +1,8 @@
 package hackbeanpot.com.gamepackcast;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.service.carrier.CarrierMessagingService;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +12,6 @@ import android.support.v7.media.MediaRouter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -68,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //Set up them ads
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_waiting));//"ca-app-pub-3940256099942544/1033173712");
         // Configure Cast device discovery
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
         mMediaRouteSelector = new MediaRouteSelector.Builder()
@@ -136,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onRouteUnselected(MediaRouter router, MediaRouter.RouteInfo info) {
             Log.d(TAG, "onRouteUnselected: info=" + info);
-            teardown(false);
+            //teardown(false);
             mSelectedDevice = null;
         }
     }
@@ -151,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onApplicationDisconnected(int errorCode) {
                     Log.d(TAG, "application has stopped");
-                    teardown(true);
+                    //teardown(true);
                 }
 
             };
@@ -286,7 +281,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onConnectionFailed(ConnectionResult result) {
             Log.e(TAG, "onConnectionFailed ");
-
+            Log.e(TAG, "" + result.getErrorMessage());
+            Log.e(TAG, "error code: " + result.getErrorCode());
             teardown(false);
         }
     }
@@ -296,11 +292,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private void teardown(boolean selectDefaultRoute) {
         Log.d(TAG, "teardown");
+        mApiClient = ((MyApplication) this.getApplication()).getmApiClient();
+        mApplicationStarted = ((MyApplication) this.getApplication()).ismApplicationStarted();
         if (mApiClient != null) {
+            Log.i(TAG, "api client exists");
             if (mApplicationStarted) {
+                Log.i(TAG, "application started");
                 if (mApiClient.isConnected() || mApiClient.isConnecting()) {
                     try {
                         Cast.CastApi.stopApplication(mApiClient, mSessionId);
+                        Log.i(TAG, "sending disconnect");
                         if (mHelloWorldChannel != null) {
                             Cast.CastApi.removeMessageReceivedCallbacks(
                                     mApiClient,
@@ -351,7 +352,6 @@ public class MainActivity extends AppCompatActivity {
 //                                boolean wasLaunched = result.getWasLaunched();
 
                                 mApplicationStarted = true;
-
                                 mHelloWorldChannel = new HelloWorldChannel();
                                 try {
                                     Cast.CastApi.setMessageReceivedCallbacks(mApiClient,
@@ -363,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                ((MyApplication) this.getApplication()).setmApplicationStarted(true);
             } catch (Exception e) {
                 Log.e(TAG, "Exception while sending message", e);
             }
@@ -376,6 +377,8 @@ public class MainActivity extends AppCompatActivity {
         //TODO dynamically chance text of buttons to player names
         if (message.equals("ENTER_NAME")) {
             Log.i(TAG, "switching to enter name");
+            //this is the best place i can think to put this unfortunately
+            ((MyApplication) this.getApplication()).setmApplicationStarted(true);
             Intent intent = new Intent(this, EnterName.class);
             startActivity(intent);
         }
@@ -446,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Maximum Players Reached", Toast.LENGTH_LONG).show();
         }
         else if (message.equals("INVALID_PLAYER_CHOICE")) {
-            Toast.makeText(MainActivity.this, "Invalid play er choice. Pick someone else.", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Invalid player choice. Pick someone else.", Toast.LENGTH_LONG).show();
         }
     }
 

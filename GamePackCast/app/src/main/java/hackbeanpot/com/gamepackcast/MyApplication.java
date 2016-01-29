@@ -10,7 +10,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class MyApplication extends Application {
     private GoogleApiClient mApiClient;
     private MainActivity.HelloWorldChannel mHelloWorldChannel;
-
+    private boolean mApplicationStarted;
 
     public MainActivity.HelloWorldChannel getmHelloWorldChannel() {
         return mHelloWorldChannel;
@@ -26,5 +26,13 @@ public class MyApplication extends Application {
 
     public void setmApiClient(GoogleApiClient mApiClient) {
         this.mApiClient = mApiClient;
+    }
+
+    public boolean ismApplicationStarted() {
+        return mApplicationStarted;
+    }
+
+    public void setmApplicationStarted(boolean mApplicationStarted) {
+        this.mApplicationStarted = mApplicationStarted;
     }
 }

@@ -5,4 +5,7 @@
     <string name="namespace">urn:x-cast:GamePackCast</string>
     <string name="instructions">aaaayyyyy hello world ayyyy</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="front_banner_ad">ca-app-pub-4397393334521158/2493813980</string>
+    <string name="interstitial_waiting">ca-app-pub-4397393334521158/1017080783</string>
+    <string name="waiting_banner">ca-app-pub-4397393334521158/3970547180</string>
 </resources>
